@@ -4,19 +4,34 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// Domain eligibility information (populated for TLDs with registrant eligibility requirements, e.g. .eu).
+/// </summary>
 [Serializable]
-public record BulkEmailValidateResponse : IJsonOnDeserialized
+public record BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactEligibilityInfo
+    : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Array of SingleEmailValidationResponse objects for bulk validation
+    /// Eligibility ID.
     /// </summary>
-    [JsonPropertyName("emailResponse")]
-    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
-        new List<BulkEmailValidateResponseEmailResponseItem>();
+    [JsonPropertyName("id")]
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// Eligibility name.
+    /// </summary>
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// Eligibility type.
+    /// </summary>
+    [JsonPropertyName("type")]
+    public string? Type { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

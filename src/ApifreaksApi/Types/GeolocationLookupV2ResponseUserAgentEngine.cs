@@ -4,21 +4,39 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// Rendering engine details.
+/// </summary>
 [Serializable]
-public record EmailValidateResponseDns : IJsonOnDeserialized
+public record GeolocationLookupV2ResponseUserAgentEngine : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    [JsonPropertyName("mxRecord")]
-    public IEnumerable<string> MxRecord { get; set; } = new List<string>();
+    /// <summary>
+    /// Rendering engine name.
+    /// </summary>
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
 
     /// <summary>
-    /// Collection of A (Address) records for the domain.
+    /// Engine category.
     /// </summary>
-    [JsonPropertyName("aRecord")]
-    public IEnumerable<string>? ARecord { get; set; }
+    [JsonPropertyName("type")]
+    public string? Type { get; set; }
+
+    /// <summary>
+    /// Full engine version string.
+    /// </summary>
+    [JsonPropertyName("version")]
+    public string? Version { get; set; }
+
+    /// <summary>
+    /// Major engine version.
+    /// </summary>
+    [JsonPropertyName("version_major")]
+    public string? VersionMajor { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

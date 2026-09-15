@@ -4,19 +4,33 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// Sender Policy Framework configuration.
+/// </summary>
 [Serializable]
-public record BulkEmailValidateResponse : IJsonOnDeserialized
+public record DomainReputationResponseEmailDeliverabilityAuthenticationSpf : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Array of SingleEmailValidationResponse objects for bulk validation
+    /// Indicates whether an SPF record was found.
     /// </summary>
-    [JsonPropertyName("emailResponse")]
-    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
-        new List<BulkEmailValidateResponseEmailResponseItem>();
+    [JsonPropertyName("present")]
+    public required bool Present { get; set; }
+
+    /// <summary>
+    /// SPF enforcement policy qualifier found in the record (e.g. ~all, -all).
+    /// </summary>
+    [JsonPropertyName("policy")]
+    public required string Policy { get; set; }
+
+    /// <summary>
+    /// Raw SPF DNS TXT record string.
+    /// </summary>
+    [JsonPropertyName("record")]
+    public required string Record { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

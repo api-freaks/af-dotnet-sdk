@@ -5,18 +5,24 @@ using global::System.Text.Json.Serialization;
 namespace ApifreaksApi;
 
 [Serializable]
-public record BulkEmailValidateResponse : IJsonOnDeserialized
+public record CommoditySymbolsV2Response : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Array of SingleEmailValidationResponse objects for bulk validation
+    /// API request success indicator. "true" for successful requests.
     /// </summary>
-    [JsonPropertyName("emailResponse")]
-    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
-        new List<BulkEmailValidateResponseEmailResponseItem>();
+    [JsonPropertyName("success")]
+    public required bool Success { get; set; }
+
+    /// <summary>
+    /// An array of commodity symbol objects.
+    /// </summary>
+    [JsonPropertyName("symbols")]
+    public IEnumerable<CommoditySymbolsV2ResponseSymbolsItem> Symbols { get; set; } =
+        new List<CommoditySymbolsV2ResponseSymbolsItem>();
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

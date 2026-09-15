@@ -4,19 +4,21 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// Summary of reasons behind the risk assessment.
+/// </summary>
 [Serializable]
-public record BulkEmailValidateResponse : IJsonOnDeserialized
+public record DomainReputationResponseEvidenceSummary : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Array of SingleEmailValidationResponse objects for bulk validation
+    /// List of reasons why the domain was flagged. Empty for a clean domain.
     /// </summary>
-    [JsonPropertyName("emailResponse")]
-    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
-        new List<BulkEmailValidateResponseEmailResponseItem>();
+    [JsonPropertyName("why_flagged")]
+    public IEnumerable<string> WhyFlagged { get; set; } = new List<string>();
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

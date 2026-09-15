@@ -1,3 +1,5 @@
+using OneOf;
+
 namespace ApifreaksApi;
 
 public partial interface IApifreaksApiClient
@@ -250,6 +252,130 @@ public partial interface IApifreaksApiClient
     /// </summary>
     WithRawResponseTask<SubdomainsLookupResponse> SubdomainsLookupAsync(
         SubdomainsLookupRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// The Domain Typosquatting API searches for registered domains that are typo or look-alike variants of a brand keyword, or that match a wildcard pattern. Results include registration lifecycle data and drop status across 1529+ TLDs, paginated at 100 domains per page.
+    /// </summary>
+    WithRawResponseTask<DomainTyposquattingResponse> DomainTyposquattingAsync(
+        DomainTyposquattingRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// The Domain Reputation API evaluates a domain against threat intelligence sources, DGA (domain generation algorithm) scoring, trust signals, and email deliverability configuration, returning a consolidated risk assessment with a verdict, severity, and supporting evidence.
+    /// </summary>
+    WithRawResponseTask<DomainReputationResponse> DomainReputationAsync(
+        DomainReputationRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+    /// </summary>
+    WithRawResponseTask<AstronomyLookupV2Response> AstronomyLookupV2Async(
+        AstronomyLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.
+    /// </summary>
+    WithRawResponseTask<TimezoneLookupV2Response> TimezoneLookupV2Async(
+        TimezoneLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information.
+    /// </summary>
+    WithRawResponseTask<GeolocationLookupV2Response> GeolocationLookupV2Async(
+        GeolocationLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.
+    /// </summary>
+    WithRawResponseTask<
+        IEnumerable<
+            OneOf<
+                BulkGeolocationLookupV2ResponseItemAbuse,
+                BulkGeolocationLookupV2ResponseItemMessage
+            >
+        >
+    > BulkGeolocationLookupV2Async(
+        BulkGeolocationLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.
+    /// </summary>
+    WithRawResponseTask<DomainWhoisLookupV2Response> DomainWhoisLookupV2Async(
+        DomainWhoisLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.
+    /// </summary>
+    WithRawResponseTask<BulkDomainWhoisLookupV2Response> BulkDomainWhoisLookupV2Async(
+        BulkDomainWhoisLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns the current live price for the requested commodity symbols. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    /// </summary>
+    WithRawResponseTask<CommodityLatestRatesV2Response> CommodityLatestRatesV2Async(
+        CommodityLatestRatesV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns OHLC price data for the requested commodity symbols on a specific date. Falls back to the nearest earlier rate if none exists for the exact date. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    /// </summary>
+    WithRawResponseTask<CommodityHistoricalRatesV2Response> CommodityHistoricalRatesV2Async(
+        CommodityHistoricalRatesV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range. For monthly-updated commodities the range snaps to month boundaries. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    /// </summary>
+    WithRawResponseTask<CommodityFluctuationV2Response> CommodityFluctuationV2Async(
+        CommodityFluctuationV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns day-by-day OHLC data for the requested commodity symbols within a date range, indexed by date. Non-trading days are excluded. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    /// </summary>
+    WithRawResponseTask<CommodityTimeSeriesV2Response> CommodityTimeSeriesV2Async(
+        CommodityTimeSeriesV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns the list of supported commodity symbols with metadata. Deprecated symbols stay listed with status "inactive" and a deprecationDate.
+    /// </summary>
+    WithRawResponseTask<CommoditySymbolsV2Response> CommoditySymbolsV2Async(
+        CommoditySymbolsV2Request request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
     );

@@ -4,7 +4,7 @@ using global::System.Text.Json.Serialization;
 namespace ApifreaksApi;
 
 [Serializable]
-public record UserAgentLookupRequest
+public record DomainWhoisLookupV2Request
 {
     /// <summary>
     /// Your API key
@@ -13,16 +13,16 @@ public record UserAgentLookupRequest
     public required string ApiKey { get; set; }
 
     /// <summary>
-    /// Format of the response
+    /// Format of the response.
     /// </summary>
     [JsonIgnore]
-    public UserAgentLookupRequestFormat? Format { get; set; }
+    public DomainWhoisLookupV2RequestFormat? Format { get; set; }
 
     /// <summary>
-    /// The User-Agent string to parse, sent as the User-Agent HTTP header.
+    /// Domain name to retrieve WHOIS data for (e.g. example.com).
     /// </summary>
     [JsonIgnore]
-    public required string UserAgent { get; set; }
+    public required string DomainName { get; set; }
 
     /// <inheritdoc />
     public override string ToString()

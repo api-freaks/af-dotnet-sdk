@@ -4,19 +4,33 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// Company or ISP information mapped to the IP address.
+/// </summary>
 [Serializable]
-public record BulkEmailValidateResponse : IJsonOnDeserialized
+public record BulkGeolocationLookupV2ResponseItemAbuseCompany : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Array of SingleEmailValidationResponse objects for bulk validation
+    /// Company name mapped to the IP.
     /// </summary>
-    [JsonPropertyName("emailResponse")]
-    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
-        new List<BulkEmailValidateResponseEmailResponseItem>();
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// Company category (ISP, HOSTING, BUSINESS, etc.).
+    /// </summary>
+    [JsonPropertyName("type")]
+    public string? Type { get; set; }
+
+    /// <summary>
+    /// Company domain name.
+    /// </summary>
+    [JsonPropertyName("domain")]
+    public string? Domain { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

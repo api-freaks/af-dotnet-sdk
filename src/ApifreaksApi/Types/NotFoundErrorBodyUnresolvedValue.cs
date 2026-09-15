@@ -5,18 +5,23 @@ using global::System.Text.Json.Serialization;
 namespace ApifreaksApi;
 
 [Serializable]
-public record BulkEmailValidateResponse : IJsonOnDeserialized
+public record NotFoundErrorBodyUnresolvedValue : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Array of SingleEmailValidationResponse objects for bulk validation
+    /// Detail message explaining why this symbol was not resolved.
     /// </summary>
-    [JsonPropertyName("emailResponse")]
-    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
-        new List<BulkEmailValidateResponseEmailResponseItem>();
+    [JsonPropertyName("message")]
+    public string? Message { get; set; }
+
+    /// <summary>
+    /// Optional list of supported symbols that closely match the unresolved symbol.
+    /// </summary>
+    [JsonPropertyName("suggestions")]
+    public IEnumerable<string>? Suggestions { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

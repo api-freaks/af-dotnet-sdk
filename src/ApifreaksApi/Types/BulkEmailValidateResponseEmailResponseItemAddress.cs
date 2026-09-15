@@ -5,18 +5,20 @@ using global::System.Text.Json.Serialization;
 namespace ApifreaksApi;
 
 [Serializable]
-public record BulkEmailValidateResponse : IJsonOnDeserialized
+public record BulkEmailValidateResponseEmailResponseItemAddress : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    /// <summary>
-    /// Array of SingleEmailValidationResponse objects for bulk validation
-    /// </summary>
-    [JsonPropertyName("emailResponse")]
-    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
-        new List<BulkEmailValidateResponseEmailResponseItem>();
+    [JsonPropertyName("security")]
+    public BulkEmailValidateResponseEmailResponseItemAddressSecurity? Security { get; set; }
+
+    [JsonPropertyName("location")]
+    public BulkEmailValidateResponseEmailResponseItemAddressLocation? Location { get; set; }
+
+    [JsonPropertyName("validIpAddress")]
+    public bool? ValidIpAddress { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

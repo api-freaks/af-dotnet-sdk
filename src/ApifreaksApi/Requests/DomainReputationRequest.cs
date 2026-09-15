@@ -4,7 +4,7 @@ using global::System.Text.Json.Serialization;
 namespace ApifreaksApi;
 
 [Serializable]
-public record UserAgentLookupRequest
+public record DomainReputationRequest
 {
     /// <summary>
     /// Your API key
@@ -13,16 +13,16 @@ public record UserAgentLookupRequest
     public required string ApiKey { get; set; }
 
     /// <summary>
-    /// Format of the response
+    /// Format of the response.
     /// </summary>
     [JsonIgnore]
-    public UserAgentLookupRequestFormat? Format { get; set; }
+    public DomainReputationRequestFormat? Format { get; set; }
 
     /// <summary>
-    /// The User-Agent string to parse, sent as the User-Agent HTTP header.
+    /// The domain name to assess (e.g. example.com). Must contain at least one dot and be at most 253 characters. Automatically lowercased.
     /// </summary>
     [JsonIgnore]
-    public required string UserAgent { get; set; }
+    public required string DomainName { get; set; }
 
     /// <inheritdoc />
     public override string ToString()

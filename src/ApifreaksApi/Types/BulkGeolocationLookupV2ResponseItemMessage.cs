@@ -4,19 +4,21 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// Per-item error, returned in place of a location result when an individual IP is invalid, bogon/reserved, or not found in the database.
+/// </summary>
 [Serializable]
-public record BulkEmailValidateResponse : IJsonOnDeserialized
+public record BulkGeolocationLookupV2ResponseItemMessage : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Array of SingleEmailValidationResponse objects for bulk validation
+    /// Human-readable reason this IP could not be resolved.
     /// </summary>
-    [JsonPropertyName("emailResponse")]
-    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
-        new List<BulkEmailValidateResponseEmailResponseItem>();
+    [JsonPropertyName("message")]
+    public required string Message { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

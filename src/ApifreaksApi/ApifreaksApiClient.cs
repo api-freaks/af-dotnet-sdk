@@ -1,5 +1,6 @@
 using ApifreaksApi.Core;
 using global::System.Text.Json;
+using OneOf;
 
 namespace ApifreaksApi;
 
@@ -10,14 +11,7 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
     public ApifreaksApiClient(ClientOptions? clientOptions = null)
     {
         clientOptions ??= new ClientOptions();
-        var platformHeaders = new Headers(
-            new Dictionary<string, string>()
-            {
-                { "X-Fern-Language", "C#" },
-                { "X-Fern-SDK-Name", "ApifreaksApi" },
-                { "X-Fern-SDK-Version", Version.Current },
-            }
-        );
+        var platformHeaders = new Headers(new Dictionary<string, string>() { });
         foreach (var header in platformHeaders)
         {
             if (!clientOptions.Headers.ContainsKey(header.Key))
@@ -2944,6 +2938,1467 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
             {
                 var responseData = JsonUtils.Deserialize<SubdomainsLookupResponse>(responseBody)!;
                 return new WithRawResponse<SubdomainsLookupResponse>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<WithRawResponse<DomainTyposquattingResponse>> DomainTyposquattingAsyncCore(
+        DomainTyposquattingRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 5)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("keyword", request.Keyword)
+            .Add("pattern", request.Pattern)
+            .Add("pageToken", request.PageToken)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v1.0/domain/typosquatting",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<DomainTyposquattingResponse>(
+                    responseBody
+                )!;
+                return new WithRawResponse<DomainTyposquattingResponse>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<WithRawResponse<DomainReputationResponse>> DomainReputationAsyncCore(
+        DomainReputationRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 3)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("domainName", request.DomainName)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v1.0/domain/reputation",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<DomainReputationResponse>(responseBody)!;
+                return new WithRawResponse<DomainReputationResponse>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<WithRawResponse<AstronomyLookupV2Response>> AstronomyLookupV2AsyncCore(
+        AstronomyLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 10)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("location", request.Location)
+            .Add("lat", request.Lat)
+            .Add("long", request.Long)
+            .Add("ip", request.Ip)
+            .Add("lang", request.Lang)
+            .Add("date", request.Date)
+            .Add("elevation", request.Elevation)
+            .Add("time_zone", request.TimeZone)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v2.0/geolocation/astronomy",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<AstronomyLookupV2Response>(responseBody)!;
+                return new WithRawResponse<AstronomyLookupV2Response>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<WithRawResponse<TimezoneLookupV2Response>> TimezoneLookupV2AsyncCore(
+        TimezoneLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 11)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("ip", request.Ip)
+            .Add("tz", request.Tz)
+            .Add("location", request.Location)
+            .Add("lat", request.Lat)
+            .Add("long", request.Long)
+            .Add("lang", request.Lang)
+            .Add("iata_code", request.IataCode)
+            .Add("icao_code", request.IcaoCode)
+            .Add("lo_code", request.LoCode)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v2.0/geolocation/timezone",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<TimezoneLookupV2Response>(responseBody)!;
+                return new WithRawResponse<TimezoneLookupV2Response>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<WithRawResponse<GeolocationLookupV2Response>> GeolocationLookupV2AsyncCore(
+        GeolocationLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 7)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("ip", request.Ip)
+            .Add("lang", request.Lang)
+            .Add("fields", request.Fields)
+            .Add("excludes", request.Excludes)
+            .Add("include", request.Include)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v2.0/geolocation/lookup",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<GeolocationLookupV2Response>(
+                    responseBody
+                )!;
+                return new WithRawResponse<GeolocationLookupV2Response>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 423:
+                        throw new LockedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<
+        WithRawResponse<
+            IEnumerable<
+                OneOf<
+                    BulkGeolocationLookupV2ResponseItemAbuse,
+                    BulkGeolocationLookupV2ResponseItemMessage
+                >
+            >
+        >
+    > BulkGeolocationLookupV2AsyncCore(
+        BulkGeolocationLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 6)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("lang", request.Lang)
+            .Add("fields", request.Fields)
+            .Add("excludes", request.Excludes)
+            .Add("include", request.Include)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Post,
+                    Path = "v2.0/geolocation/lookup",
+                    Body = request,
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    ContentType = "application/json",
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<
+                    IEnumerable<
+                        OneOf<
+                            BulkGeolocationLookupV2ResponseItemAbuse,
+                            BulkGeolocationLookupV2ResponseItemMessage
+                        >
+                    >
+                >(responseBody)!;
+                return new WithRawResponse<
+                    IEnumerable<
+                        OneOf<
+                            BulkGeolocationLookupV2ResponseItemAbuse,
+                            BulkGeolocationLookupV2ResponseItemMessage
+                        >
+                    >
+                >()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<WithRawResponse<DomainWhoisLookupV2Response>> DomainWhoisLookupV2AsyncCore(
+        DomainWhoisLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 3)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("domainName", request.DomainName)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v2.0/domain/whois/live",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<DomainWhoisLookupV2Response>(
+                    responseBody
+                )!;
+                return new WithRawResponse<DomainWhoisLookupV2Response>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<
+        WithRawResponse<BulkDomainWhoisLookupV2Response>
+    > BulkDomainWhoisLookupV2AsyncCore(
+        BulkDomainWhoisLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 2)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Post,
+                    Path = "v2.0/domain/whois/live",
+                    Body = request,
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    ContentType = "application/json",
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<BulkDomainWhoisLookupV2Response>(
+                    responseBody
+                )!;
+                return new WithRawResponse<BulkDomainWhoisLookupV2Response>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<
+        WithRawResponse<CommodityLatestRatesV2Response>
+    > CommodityLatestRatesV2AsyncCore(
+        CommodityLatestRatesV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 4)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("symbols", request.Symbols)
+            .Add("quote", request.Quote)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v2.0/commodity/rates/latest",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<CommodityLatestRatesV2Response>(
+                    responseBody
+                )!;
+                return new WithRawResponse<CommodityLatestRatesV2Response>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<
+        WithRawResponse<CommodityHistoricalRatesV2Response>
+    > CommodityHistoricalRatesV2AsyncCore(
+        CommodityHistoricalRatesV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 4)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("symbols", request.Symbols)
+            .Add("date", request.Date)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v2.0/commodity/rates/historical",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<CommodityHistoricalRatesV2Response>(
+                    responseBody
+                )!;
+                return new WithRawResponse<CommodityHistoricalRatesV2Response>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<
+        WithRawResponse<CommodityFluctuationV2Response>
+    > CommodityFluctuationV2AsyncCore(
+        CommodityFluctuationV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 5)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("symbols", request.Symbols)
+            .Add("startDate", request.StartDate)
+            .Add("endDate", request.EndDate)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v2.0/commodity/fluctuation",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<CommodityFluctuationV2Response>(
+                    responseBody
+                )!;
+                return new WithRawResponse<CommodityFluctuationV2Response>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<
+        WithRawResponse<CommodityTimeSeriesV2Response>
+    > CommodityTimeSeriesV2AsyncCore(
+        CommodityTimeSeriesV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 5)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .Add("symbols", request.Symbols)
+            .Add("startDate", request.StartDate)
+            .Add("endDate", request.EndDate)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v2.0/commodity/time-series",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<CommodityTimeSeriesV2Response>(
+                    responseBody
+                )!;
+                return new WithRawResponse<CommodityTimeSeriesV2Response>()
+                {
+                    Data = responseData,
+                    RawResponse = new RawResponse()
+                    {
+                        StatusCode = response.Raw.StatusCode,
+                        Url = response.Raw.RequestMessage?.RequestUri ?? new Uri("about:blank"),
+                        Headers = ResponseHeaders.FromHttpResponseMessage(response.Raw),
+                    },
+                };
+            }
+            catch (JsonException e)
+            {
+                throw new ApifreaksApiApiException(
+                    "Failed to deserialize response",
+                    response.StatusCode,
+                    responseBody,
+                    e
+                );
+            }
+        }
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                switch (response.StatusCode)
+                {
+                    case 400:
+                        throw new BadRequestError(JsonUtils.Deserialize<object>(responseBody));
+                    case 401:
+                        throw new UnauthorizedError(JsonUtils.Deserialize<object>(responseBody));
+                    case 402:
+                        throw new PaymentRequiredError(JsonUtils.Deserialize<object>(responseBody));
+                    case 403:
+                        throw new ForbiddenError(JsonUtils.Deserialize<object>(responseBody));
+                    case 404:
+                        throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
+                    case 406:
+                        throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 413:
+                        throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
+                    case 429:
+                        throw new TooManyRequestsError(JsonUtils.Deserialize<object>(responseBody));
+                    case 500:
+                        throw new InternalServerError(JsonUtils.Deserialize<object>(responseBody));
+                    case 503:
+                        throw new ServiceUnavailableError(
+                            JsonUtils.Deserialize<object>(responseBody)
+                        );
+                    case 504:
+                        throw new GatewayTimeoutError(JsonUtils.Deserialize<object>(responseBody));
+                }
+            }
+            catch (JsonException)
+            {
+                // unable to map error response, throwing generic error
+            }
+            throw new ApifreaksApiApiException(
+                $"Error with status code {response.StatusCode}",
+                response.StatusCode,
+                responseBody
+            );
+        }
+    }
+
+    private async Task<WithRawResponse<CommoditySymbolsV2Response>> CommoditySymbolsV2AsyncCore(
+        CommoditySymbolsV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 2)
+            .Add("apiKey", request.ApiKey)
+            .Add("format", request.Format)
+            .MergeAdditional(options?.AdditionalQueryParameters)
+            .Build();
+        var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add(_client.Options.Headers)
+            .Add(_client.Options.AdditionalHeaders)
+            .Add(options?.AdditionalHeaders)
+            .BuildAsync()
+            .ConfigureAwait(false);
+        var response = await _client
+            .SendRequestAsync(
+                new JsonRequest
+                {
+                    Method = HttpMethod.Get,
+                    Path = "v2.0/commodity/symbols",
+                    QueryString = _queryString,
+                    Headers = _headers,
+                    Options = options,
+                },
+                cancellationToken
+            )
+            .ConfigureAwait(false);
+        if (response.StatusCode is >= 200 and < 400)
+        {
+            var responseBody = await response
+                .Raw.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            try
+            {
+                var responseData = JsonUtils.Deserialize<CommoditySymbolsV2Response>(responseBody)!;
+                return new WithRawResponse<CommoditySymbolsV2Response>()
                 {
                     Data = responseData,
                     RawResponse = new RawResponse()
@@ -11335,6 +12790,7 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
             .MergeAdditional(options?.AdditionalQueryParameters)
             .Build();
         var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
+            .Add("User-Agent", request.UserAgent)
             .Add(_client.Options.Headers)
             .Add(_client.Options.AdditionalHeaders)
             .Add(options?.AdditionalHeaders)
@@ -11545,13 +13001,8 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
         CancellationToken cancellationToken = default
     )
     {
-        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 6)
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 1)
             .Add("apiKey", request.ApiKey)
-            .Add("url", request.Url)
-            .Add("model", request.Model)
-            .Add("page_range", request.PageRange)
-            .Add("zone", request.Zone)
-            .Add("new_line", request.NewLine)
             .MergeAdditional(options?.AdditionalQueryParameters)
             .Build();
         var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
@@ -12853,6 +14304,284 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
     {
         return new WithRawResponseTask<SubdomainsLookupResponse>(
             SubdomainsLookupAsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// The Domain Typosquatting API searches for registered domains that are typo or look-alike variants of a brand keyword, or that match a wildcard pattern. Results include registration lifecycle data and drop status across 1529+ TLDs, paginated at 100 domains per page.
+    /// </summary>
+    /// <example><code>
+    /// await client.DomainTyposquattingAsync(new DomainTyposquattingRequest { ApiKey = "apiKey" });
+    /// </code></example>
+    public WithRawResponseTask<DomainTyposquattingResponse> DomainTyposquattingAsync(
+        DomainTyposquattingRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<DomainTyposquattingResponse>(
+            DomainTyposquattingAsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// The Domain Reputation API evaluates a domain against threat intelligence sources, DGA (domain generation algorithm) scoring, trust signals, and email deliverability configuration, returning a consolidated risk assessment with a verdict, severity, and supporting evidence.
+    /// </summary>
+    /// <example><code>
+    /// await client.DomainReputationAsync(
+    ///     new DomainReputationRequest { ApiKey = "apiKey", DomainName = "domainName" }
+    /// );
+    /// </code></example>
+    public WithRawResponseTask<DomainReputationResponse> DomainReputationAsync(
+        DomainReputationRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<DomainReputationResponse>(
+            DomainReputationAsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+    /// </summary>
+    /// <example><code>
+    /// await client.AstronomyLookupV2Async(new AstronomyLookupV2Request { ApiKey = "apiKey" });
+    /// </code></example>
+    public WithRawResponseTask<AstronomyLookupV2Response> AstronomyLookupV2Async(
+        AstronomyLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<AstronomyLookupV2Response>(
+            AstronomyLookupV2AsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.
+    /// </summary>
+    /// <example><code>
+    /// await client.TimezoneLookupV2Async(new TimezoneLookupV2Request { ApiKey = "apiKey" });
+    /// </code></example>
+    public WithRawResponseTask<TimezoneLookupV2Response> TimezoneLookupV2Async(
+        TimezoneLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<TimezoneLookupV2Response>(
+            TimezoneLookupV2AsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information.
+    /// </summary>
+    /// <example><code>
+    /// await client.GeolocationLookupV2Async(new GeolocationLookupV2Request { ApiKey = "apiKey" });
+    /// </code></example>
+    public WithRawResponseTask<GeolocationLookupV2Response> GeolocationLookupV2Async(
+        GeolocationLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<GeolocationLookupV2Response>(
+            GeolocationLookupV2AsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.
+    /// </summary>
+    /// <example><code>
+    /// await client.BulkGeolocationLookupV2Async(
+    ///     new BulkGeolocationLookupV2Request
+    ///     {
+    ///         ApiKey = "apiKey",
+    ///         Ips = new List&lt;string&gt;() { "ips" },
+    ///     }
+    /// );
+    /// </code></example>
+    public WithRawResponseTask<
+        IEnumerable<
+            OneOf<
+                BulkGeolocationLookupV2ResponseItemAbuse,
+                BulkGeolocationLookupV2ResponseItemMessage
+            >
+        >
+    > BulkGeolocationLookupV2Async(
+        BulkGeolocationLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<
+            IEnumerable<
+                OneOf<
+                    BulkGeolocationLookupV2ResponseItemAbuse,
+                    BulkGeolocationLookupV2ResponseItemMessage
+                >
+            >
+        >(BulkGeolocationLookupV2AsyncCore(request, options, cancellationToken));
+    }
+
+    /// <summary>
+    /// Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.
+    /// </summary>
+    /// <example><code>
+    /// await client.DomainWhoisLookupV2Async(
+    ///     new DomainWhoisLookupV2Request { ApiKey = "apiKey", DomainName = "domainName" }
+    /// );
+    /// </code></example>
+    public WithRawResponseTask<DomainWhoisLookupV2Response> DomainWhoisLookupV2Async(
+        DomainWhoisLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<DomainWhoisLookupV2Response>(
+            DomainWhoisLookupV2AsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.
+    /// </summary>
+    /// <example><code>
+    /// await client.BulkDomainWhoisLookupV2Async(
+    ///     new BulkDomainWhoisLookupV2Request
+    ///     {
+    ///         ApiKey = "apiKey",
+    ///         DomainNames = new List&lt;string&gt;() { "domainNames" },
+    ///     }
+    /// );
+    /// </code></example>
+    public WithRawResponseTask<BulkDomainWhoisLookupV2Response> BulkDomainWhoisLookupV2Async(
+        BulkDomainWhoisLookupV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<BulkDomainWhoisLookupV2Response>(
+            BulkDomainWhoisLookupV2AsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Returns the current live price for the requested commodity symbols. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    /// </summary>
+    /// <example><code>
+    /// await client.CommodityLatestRatesV2Async(
+    ///     new CommodityLatestRatesV2Request
+    ///     {
+    ///         ApiKey = "apiKey",
+    ///         Symbols = new List&lt;string&gt;() { "symbols" },
+    ///     }
+    /// );
+    /// </code></example>
+    public WithRawResponseTask<CommodityLatestRatesV2Response> CommodityLatestRatesV2Async(
+        CommodityLatestRatesV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<CommodityLatestRatesV2Response>(
+            CommodityLatestRatesV2AsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Returns OHLC price data for the requested commodity symbols on a specific date. Falls back to the nearest earlier rate if none exists for the exact date. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    /// </summary>
+    /// <example><code>
+    /// await client.CommodityHistoricalRatesV2Async(
+    ///     new CommodityHistoricalRatesV2Request
+    ///     {
+    ///         ApiKey = "apiKey",
+    ///         Symbols = new List&lt;string&gt;() { "symbols" },
+    ///         Date = new DateOnly(2023, 1, 15),
+    ///     }
+    /// );
+    /// </code></example>
+    public WithRawResponseTask<CommodityHistoricalRatesV2Response> CommodityHistoricalRatesV2Async(
+        CommodityHistoricalRatesV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<CommodityHistoricalRatesV2Response>(
+            CommodityHistoricalRatesV2AsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range. For monthly-updated commodities the range snaps to month boundaries. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    /// </summary>
+    /// <example><code>
+    /// await client.CommodityFluctuationV2Async(
+    ///     new CommodityFluctuationV2Request
+    ///     {
+    ///         ApiKey = "apiKey",
+    ///         Symbols = new List&lt;string&gt;() { "symbols" },
+    ///         StartDate = new DateOnly(2023, 1, 15),
+    ///         EndDate = new DateOnly(2023, 1, 15),
+    ///     }
+    /// );
+    /// </code></example>
+    public WithRawResponseTask<CommodityFluctuationV2Response> CommodityFluctuationV2Async(
+        CommodityFluctuationV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<CommodityFluctuationV2Response>(
+            CommodityFluctuationV2AsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Returns day-by-day OHLC data for the requested commodity symbols within a date range, indexed by date. Non-trading days are excluded. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    /// </summary>
+    /// <example><code>
+    /// await client.CommodityTimeSeriesV2Async(
+    ///     new CommodityTimeSeriesV2Request
+    ///     {
+    ///         ApiKey = "apiKey",
+    ///         Symbols = new List&lt;string&gt;() { "symbols" },
+    ///         StartDate = new DateOnly(2023, 1, 15),
+    ///         EndDate = new DateOnly(2023, 1, 15),
+    ///     }
+    /// );
+    /// </code></example>
+    public WithRawResponseTask<CommodityTimeSeriesV2Response> CommodityTimeSeriesV2Async(
+        CommodityTimeSeriesV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<CommodityTimeSeriesV2Response>(
+            CommodityTimeSeriesV2AsyncCore(request, options, cancellationToken)
+        );
+    }
+
+    /// <summary>
+    /// Returns the list of supported commodity symbols with metadata. Deprecated symbols stay listed with status "inactive" and a deprecationDate.
+    /// </summary>
+    /// <example><code>
+    /// await client.CommoditySymbolsV2Async(new CommoditySymbolsV2Request { ApiKey = "apiKey" });
+    /// </code></example>
+    public WithRawResponseTask<CommoditySymbolsV2Response> CommoditySymbolsV2Async(
+        CommoditySymbolsV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return new WithRawResponseTask<CommoditySymbolsV2Response>(
+            CommoditySymbolsV2AsyncCore(request, options, cancellationToken)
         );
     }
 
@@ -14370,12 +16099,7 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
     /// </summary>
     /// <example><code>
     /// await client.OcrPredictAsync(
-    ///     new OcrPredictRequest
-    ///     {
-    ///         ApiKey = "apiKey",
-    ///         Model = OcrPredictRequestModel.MiniOcrV1,
-    ///         OcrPredictRequestModel = OcrPredictRequestModel.MiniOcrV1,
-    ///     }
+    ///     new OcrPredictRequest { ApiKey = "apiKey", Model = OcrPredictRequestModel.MiniOcrV1 }
     /// );
     /// </code></example>
     public WithRawResponseTask<OcrPredictResponse> OcrPredictAsync(

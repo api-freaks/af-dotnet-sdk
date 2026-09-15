@@ -4,19 +4,33 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// Registrar's abuse-reporting contact.
+/// </summary>
 [Serializable]
-public record BulkEmailValidateResponse : IJsonOnDeserialized
+public record DomainWhoisLookupV2ResponseAbuseContact : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Array of SingleEmailValidationResponse objects for bulk validation
+    /// Name of the abuse contact at the registrar.
     /// </summary>
-    [JsonPropertyName("emailResponse")]
-    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
-        new List<BulkEmailValidateResponseEmailResponseItem>();
+    [JsonPropertyName("registrar_name")]
+    public string? RegistrarName { get; set; }
+
+    /// <summary>
+    /// Abuse contact email.
+    /// </summary>
+    [JsonPropertyName("email_address")]
+    public string? EmailAddress { get; set; }
+
+    /// <summary>
+    /// Abuse contact phone.
+    /// </summary>
+    [JsonPropertyName("phone_number")]
+    public string? PhoneNumber { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

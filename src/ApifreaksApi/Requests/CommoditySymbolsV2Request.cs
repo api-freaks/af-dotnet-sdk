@@ -4,7 +4,7 @@ using global::System.Text.Json.Serialization;
 namespace ApifreaksApi;
 
 [Serializable]
-public record UserAgentLookupRequest
+public record CommoditySymbolsV2Request
 {
     /// <summary>
     /// Your API key
@@ -13,16 +13,10 @@ public record UserAgentLookupRequest
     public required string ApiKey { get; set; }
 
     /// <summary>
-    /// Format of the response
+    /// Response format. Currently only `json` is supported.
     /// </summary>
     [JsonIgnore]
-    public UserAgentLookupRequestFormat? Format { get; set; }
-
-    /// <summary>
-    /// The User-Agent string to parse, sent as the User-Agent HTTP header.
-    /// </summary>
-    [JsonIgnore]
-    public required string UserAgent { get; set; }
+    public CommoditySymbolsV2RequestFormat? Format { get; set; }
 
     /// <inheritdoc />
     public override string ToString()
