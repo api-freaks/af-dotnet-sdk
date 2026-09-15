@@ -1,0 +1,55 @@
+name: Publish to NuGet
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # required for NuGet Trusted Publishing (OIDC)
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.x
+
+      - name: Set version from the git tag
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}   # strips the leading "v": v1.1.1 -> 1.1.1
+          echo "Releasing version $VERSION"
+          echo "PACKAGE_VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Restore
+        run: dotnet restore src/ApifreaksApi/ApifreaksApi.csproj
+
+      - name: Pack
+        run: >
+          dotnet pack src/ApifreaksApi/ApifreaksApi.csproj
+          --no-restore -c Release
+          -p:PackageVersion=${{ env.PACKAGE_VERSION }}
+          -o ./artifacts
+
+      # Trusted Publishing: exchanges this workflow's GitHub OIDC token for a
+      # short-lived (1 hour) NuGet API key - no long-lived secret to store or
+      # rotate. Requires a matching policy registered on nuget.org first:
+      # Repository Owner=api-freaks, Repository=af-dotnet-sdk,
+      # Workflow File=publish.yml, Policy Ownership=the apifreaks org.
+      - name: NuGet login (OIDC -> temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: NuGet push
+        run: >
+          dotnet nuget push ./artifacts/*.nupkg
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json

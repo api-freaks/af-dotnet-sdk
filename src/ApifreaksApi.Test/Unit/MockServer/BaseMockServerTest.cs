@@ -6,7 +6,7 @@ using WireMock.Settings;
 
 namespace ApifreaksApi.Test.Unit.MockServer;
 
-public class BaseMockServerTest
+public abstract class BaseMockServerTest
 {
     protected WireMockServer Server { get; set; } = null!;
 
