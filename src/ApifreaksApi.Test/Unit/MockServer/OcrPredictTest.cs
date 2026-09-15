@@ -31,7 +31,6 @@ public class OcrPredictTest : BaseMockServerTest
                     .RequestBuilders.Request.Create()
                     .WithPath("/v1.0/ocr/predict")
                     .WithParam("apiKey", "apiKey")
-                    .WithParam("model", "mini-ocr-v1")
                     .WithHeader("Content-Type", "application/json")
                     .UsingPost()
                     .WithBodyAsJson(requestJson)
@@ -44,12 +43,7 @@ public class OcrPredictTest : BaseMockServerTest
             );
 
         var response = await Client.OcrPredictAsync(
-            new OcrPredictRequest
-            {
-                ApiKey = "apiKey",
-                Model = OcrPredictRequestModel.MiniOcrV1,
-                OcrPredictRequestModel = OcrPredictRequestModel.MiniOcrV1,
-            }
+            new OcrPredictRequest { ApiKey = "apiKey", Model = OcrPredictRequestModel.MiniOcrV1 }
         );
         JsonAssert.AreEqual(response, mockResponse);
     }
@@ -79,7 +73,6 @@ public class OcrPredictTest : BaseMockServerTest
                     .RequestBuilders.Request.Create()
                     .WithPath("/v1.0/ocr/predict")
                     .WithParam("apiKey", "apiKey")
-                    .WithParam("model", "mini-ocr-v1")
                     .WithHeader("Content-Type", "application/json")
                     .UsingPost()
                     .WithBodyAsJson(requestJson)
@@ -92,12 +85,7 @@ public class OcrPredictTest : BaseMockServerTest
             );
 
         var response = await Client.OcrPredictAsync(
-            new OcrPredictRequest
-            {
-                ApiKey = "apiKey",
-                Model = OcrPredictRequestModel.MiniOcrV1,
-                OcrPredictRequestModel = OcrPredictRequestModel.MiniOcrV1,
-            }
+            new OcrPredictRequest { ApiKey = "apiKey", Model = OcrPredictRequestModel.MiniOcrV1 }
         );
         JsonAssert.AreEqual(response, mockResponse);
     }
@@ -127,7 +115,6 @@ public class OcrPredictTest : BaseMockServerTest
                     .RequestBuilders.Request.Create()
                     .WithPath("/v1.0/ocr/predict")
                     .WithParam("apiKey", "apiKey")
-                    .WithParam("model", "mini-ocr-v1")
                     .WithHeader("Content-Type", "application/json")
                     .UsingPost()
                     .WithBodyAsJson(requestJson)
@@ -140,12 +127,7 @@ public class OcrPredictTest : BaseMockServerTest
             );
 
         var response = await Client.OcrPredictAsync(
-            new OcrPredictRequest
-            {
-                ApiKey = "apiKey",
-                Model = OcrPredictRequestModel.MiniOcrV1,
-                OcrPredictRequestModel = OcrPredictRequestModel.MiniOcrV1,
-            }
+            new OcrPredictRequest { ApiKey = "apiKey", Model = OcrPredictRequestModel.MiniOcrV1 }
         );
         JsonAssert.AreEqual(response, mockResponse);
     }
@@ -187,7 +169,6 @@ public class OcrPredictTest : BaseMockServerTest
                     .RequestBuilders.Request.Create()
                     .WithPath("/v1.0/ocr/predict")
                     .WithParam("apiKey", "apiKey")
-                    .WithParam("model", "mini-ocr-v1")
                     .WithHeader("Content-Type", "application/json")
                     .UsingPost()
                     .WithBodyAsJson(requestJson)
@@ -200,12 +181,7 @@ public class OcrPredictTest : BaseMockServerTest
             );
 
         var response = await Client.OcrPredictAsync(
-            new OcrPredictRequest
-            {
-                ApiKey = "apiKey",
-                Model = OcrPredictRequestModel.MiniOcrV1,
-                OcrPredictRequestModel = OcrPredictRequestModel.MiniOcrV1,
-            }
+            new OcrPredictRequest { ApiKey = "apiKey", Model = OcrPredictRequestModel.MiniOcrV1 }
         );
         JsonAssert.AreEqual(response, mockResponse);
     }

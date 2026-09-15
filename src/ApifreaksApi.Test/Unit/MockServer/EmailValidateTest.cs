@@ -38,11 +38,11 @@ public class EmailValidateTest : BaseMockServerTest
                 "fullMailBox": true
               },
               "dns": {
-                "mxRecords": [
-                  "mxRecords"
+                "mxRecord": [
+                  "mxRecord"
                 ],
-                "aRecords": [
-                  "aRecords"
+                "aRecord": [
+                  "aRecord"
                 ]
               },
               "ip": "ip",

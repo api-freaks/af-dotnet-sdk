@@ -23,7 +23,7 @@ public class BulkEmailValidateTest : BaseMockServerTest
 
         const string mockResponse = """
             {
-              "emailValidationResponses": [
+              "emailResponse": [
                 {
                   "success": true,
                   "email": "email",
@@ -43,8 +43,8 @@ public class BulkEmailValidateTest : BaseMockServerTest
                     "role": true
                   },
                   "dns": {
-                    "mxRecords": [
-                      "mxRecords"
+                    "mxRecord": [
+                      "mxRecord"
                     ]
                   },
                   "ip": "ip"
