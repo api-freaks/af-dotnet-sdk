@@ -18,6 +18,12 @@ public record UserAgentLookupRequest
     [JsonIgnore]
     public UserAgentLookupRequestFormat? Format { get; set; }
 
+    /// <summary>
+    /// The User-Agent string to parse, sent as the User-Agent HTTP header.
+    /// </summary>
+    [JsonIgnore]
+    public required string UserAgent { get; set; }
+
     /// <inheritdoc />
     public override string ToString()
     {

@@ -14,8 +14,9 @@ public record BulkEmailValidateResponse : IJsonOnDeserialized
     /// <summary>
     /// Array of SingleEmailValidationResponse objects for bulk validation
     /// </summary>
-    [JsonPropertyName("emailValidationResponses")]
-    public IEnumerable<BulkEmailValidateResponseEmailValidationResponsesItem>? EmailValidationResponses { get; set; }
+    [JsonPropertyName("emailResponse")]
+    public IEnumerable<BulkEmailValidateResponseEmailResponseItem> EmailResponse { get; set; } =
+        new List<BulkEmailValidateResponseEmailResponseItem>();
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

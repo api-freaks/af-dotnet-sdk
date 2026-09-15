@@ -11,14 +11,14 @@ public record EmailValidateResponseDns : IJsonOnDeserialized
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    [JsonPropertyName("mxRecords")]
-    public IEnumerable<string> MxRecords { get; set; } = new List<string>();
+    [JsonPropertyName("mxRecord")]
+    public IEnumerable<string> MxRecord { get; set; } = new List<string>();
 
     /// <summary>
     /// Collection of A (Address) records for the domain.
     /// </summary>
-    [JsonPropertyName("aRecords")]
-    public IEnumerable<string>? ARecords { get; set; }
+    [JsonPropertyName("aRecord")]
+    public IEnumerable<string>? ARecord { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

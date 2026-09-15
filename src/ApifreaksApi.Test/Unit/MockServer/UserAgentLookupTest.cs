@@ -56,7 +56,7 @@ public class UserAgentLookupTest : BaseMockServerTest
             );
 
         var response = await Client.UserAgentLookupAsync(
-            new UserAgentLookupRequest { ApiKey = "apiKey" }
+            new UserAgentLookupRequest { ApiKey = "apiKey", UserAgent = "userAgent" }
         );
         JsonAssert.AreEqual(response, mockResponse);
     }
