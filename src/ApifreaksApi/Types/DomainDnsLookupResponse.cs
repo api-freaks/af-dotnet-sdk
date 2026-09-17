@@ -19,10 +19,10 @@ public record DomainDnsLookupResponse : IJsonOnDeserialized
     public required bool Status { get; set; }
 
     /// <summary>
-    /// Time at which the query was made (Format:YYYY-MM-DD HH:mm:ss).
+    /// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
     /// </summary>
     [JsonPropertyName("queryTime")]
-    public required DateTime QueryTime { get; set; }
+    public required string QueryTime { get; set; }
 
     /// <summary>
     /// Queried domain.

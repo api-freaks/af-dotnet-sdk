@@ -87,13 +87,13 @@ public record CurrentWeatherResponseLocationContinentCode : IJsonOnDeserialized
     /// Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90.
     /// </summary>
     [JsonPropertyName("latitude")]
-    public required float Latitude { get; set; }
+    public required string Latitude { get; set; }
 
     /// <summary>
     /// Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180.
     /// </summary>
     [JsonPropertyName("longitude")]
-    public required float Longitude { get; set; }
+    public required string Longitude { get; set; }
 
     /// <summary>
     /// Specific locality, neighborhood, or small area designation within the city.
@@ -105,7 +105,7 @@ public record CurrentWeatherResponseLocationContinentCode : IJsonOnDeserialized
     /// Elevation above mean sea level in meters for the IP geolocation.
     /// </summary>
     [JsonPropertyName("elevation")]
-    public float? Elevation { get; set; }
+    public string? Elevation { get; set; }
 
     /// <summary>
     /// IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).

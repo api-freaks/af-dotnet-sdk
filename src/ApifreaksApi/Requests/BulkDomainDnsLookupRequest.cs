@@ -31,6 +31,12 @@ public record BulkDomainDnsLookupRequest
     [JsonPropertyName("domainNames")]
     public IEnumerable<string> DomainNames { get; set; } = new List<string>();
 
+    /// <summary>
+    /// Array of IP addresses to include in the lookup for PTR record enrichment.
+    /// </summary>
+    [JsonPropertyName("ipAddresses")]
+    public IEnumerable<string>? IpAddresses { get; set; }
+
     /// <inheritdoc />
     public override string ToString()
     {

@@ -22,7 +22,7 @@ public class ZipcodeDistanceTest : BaseMockServerTest
 
         const string mockResponse = """
             {
-              "results_count": "results_count",
+              "result_count": 2,
               "results": [
                 {
                   "code": "49610",

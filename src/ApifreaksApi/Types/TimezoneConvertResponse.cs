@@ -12,16 +12,16 @@ public record TimezoneConvertResponse : IJsonOnDeserialized
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Original time before conversion
+    /// Original time before conversion (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
     /// </summary>
     [JsonPropertyName("original_time")]
-    public required DateTime OriginalTime { get; set; }
+    public required string OriginalTime { get; set; }
 
     /// <summary>
-    /// Time after conversion
+    /// Time after conversion (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
     /// </summary>
     [JsonPropertyName("converted_time")]
-    public required DateTime ConvertedTime { get; set; }
+    public required string ConvertedTime { get; set; }
 
     /// <summary>
     /// Difference in hours

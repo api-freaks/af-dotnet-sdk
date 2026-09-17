@@ -4,22 +4,18 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// Returned when `sug` is omitted or `true` — the queried domain plus suggested alternatives.
+/// </summary>
 [Serializable]
-public record DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
-    : IJsonOnDeserialized
+public record DomainAvailabilitySuggestionsResponseDomainAvailableResponse : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    [JsonPropertyName("oid")]
-    public string? Oid { get; set; }
-
-    [JsonPropertyName("cpsUri")]
-    public string? CpsUri { get; set; }
-
-    [JsonPropertyName("userNotice")]
-    public DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice? UserNotice { get; set; }
+    [JsonPropertyName("domain_available_response")]
+    public IEnumerable<DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem>? DomainAvailableResponse { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

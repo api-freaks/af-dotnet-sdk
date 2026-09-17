@@ -19,7 +19,7 @@ public record BulkUserAgentLookupRequest
     public BulkUserAgentLookupRequestFormat? Format { get; set; }
 
     /// <summary>
-    /// List of user agent strings to parse
+    /// Array of User-Agent strings to parse. Maximum 100 strings per request — exceeding that returns a 413.
     /// </summary>
     [JsonPropertyName("uaStrings")]
     public IEnumerable<string> UaStrings { get; set; } = new List<string>();

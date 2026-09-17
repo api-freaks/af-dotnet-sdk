@@ -15,10 +15,10 @@ public record AirQualityResponseCurrent : IJsonOnDeserialized
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// ISO 8601 formatted timestamp (iso8601).
+    /// Local timestamp of the observation (format YYYY-MM-DDTHH:mm, not ISO 8601).
     /// </summary>
     [JsonPropertyName("timestamp")]
-    public required DateTime Timestamp { get; set; }
+    public required string Timestamp { get; set; }
 
     /// <summary>
     /// Consolidated European Air Quality Index representing the highest value among individual pollutant indices. Ranges: 0-20 (good), 20-40 (fair), 40-60 (moderate), 60-80 (poor), 80-100 (very poor), &gt;100 (extremely poor).

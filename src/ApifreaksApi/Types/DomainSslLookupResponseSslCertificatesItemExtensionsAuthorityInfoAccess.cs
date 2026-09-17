@@ -13,10 +13,10 @@ public record DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoA
         new Dictionary<string, JsonElement>();
 
     [JsonPropertyName("issuers")]
-    public IEnumerable<string> Issuers { get; set; } = new List<string>();
+    public IEnumerable<string>? Issuers { get; set; }
 
     [JsonPropertyName("ocsp")]
-    public IEnumerable<string> Ocsp { get; set; } = new List<string>();
+    public IEnumerable<string>? Ocsp { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

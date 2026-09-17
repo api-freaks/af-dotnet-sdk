@@ -241,7 +241,12 @@ public partial interface IApifreaksApiClient
     /// <summary>
     /// The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
     /// </summary>
-    WithRawResponseTask<DomainAvailabilitySuggestionsResponse> DomainAvailabilitySuggestionsAsync(
+    WithRawResponseTask<
+        OneOf<
+            DomainAvailabilitySuggestionsResponseDomain,
+            DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+        >
+    > DomainAvailabilitySuggestionsAsync(
         DomainAvailabilitySuggestionsRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
@@ -1046,7 +1051,7 @@ public partial interface IApifreaksApiClient
     );
 
     /// <summary>
-    /// Parse up to `50,000 User-Agent strings` at once in a single request.
+    /// Parse up to `100 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
     /// </summary>
     WithRawResponseTask<IEnumerable<BulkUserAgentLookupResponseItem>> BulkUserAgentLookupAsync(
         BulkUserAgentLookupRequest request,

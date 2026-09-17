@@ -54,13 +54,13 @@ public record TimezoneLookupV2ResponseLoCodeDetails : IJsonOnDeserialized
     /// The latitude coordinate of the location.
     /// </summary>
     [JsonPropertyName("latitude")]
-    public float? Latitude { get; set; }
+    public string? Latitude { get; set; }
 
     /// <summary>
     /// The longitude coordinate of the location.
     /// </summary>
     [JsonPropertyName("longitude")]
-    public float? Longitude { get; set; }
+    public string? Longitude { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

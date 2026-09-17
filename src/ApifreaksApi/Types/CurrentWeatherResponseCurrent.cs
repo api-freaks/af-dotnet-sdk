@@ -15,10 +15,10 @@ public record CurrentWeatherResponseCurrent : IJsonOnDeserialized
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// ISO 8601 formatted timestamp of the current weather observation.
+    /// Local timestamp of the current weather observation (format YYYY-MM-DDTHH:mm, not ISO 8601).
     /// </summary>
     [JsonPropertyName("timestamp")]
-    public required DateTime Timestamp { get; set; }
+    public required string Timestamp { get; set; }
 
     /// <summary>
     /// Current air temperature (°C) measured at 2 meters above ground.

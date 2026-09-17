@@ -24,9 +24,10 @@ public class BulkDomainDnsLookupTest : BaseMockServerTest
               "bulk_dns_info": [
                 {
                   "status": true,
-                  "queryTime": "2024-01-15T09:30:00.000Z",
+                  "queryTime": "queryTime",
                   "domainName": "domainName",
                   "domainRegistered": true,
+                  "ipAddress": "ipAddress",
                   "dnsTypes": {},
                   "dnsRecords": [
                     {

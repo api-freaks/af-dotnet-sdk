@@ -23,7 +23,7 @@ jobs:
 
       - name: Set version from the git tag
         run: |
-          VERSION=${GITHUB_REF_NAME#v}   # strips the leading "v": v1.1.1 -> 1.1.1
+          VERSION=${GITHUB_REF_NAME#v}
           echo "Releasing version $VERSION"
           echo "PACKAGE_VERSION=$VERSION" >> "$GITHUB_ENV"
 

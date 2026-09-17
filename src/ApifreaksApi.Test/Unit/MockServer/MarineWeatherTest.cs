@@ -14,27 +14,27 @@ public class MarineWeatherTest : BaseMockServerTest
         const string mockResponse = """
             {
               "location": {
-                "continent_code": "AS",
-                "continent_name": "Asia",
-                "country_code2": "PK",
-                "country_code3": "PAK",
-                "country_name": "Pakistan",
-                "country_name_official": "Islamic Republic of Pakistan",
+                "continent_code": "NA",
+                "continent_name": "North America",
+                "country_code2": "US",
+                "country_code3": "USA",
+                "country_name": "United States",
+                "country_name_official": "United States of America",
                 "is_eu": false,
-                "state_prov": "Punjab",
-                "state_code": "PK-PB",
-                "district": "Lahore",
-                "city": "Lahore",
-                "zipcode": "54000",
-                "latitude": 1.1,
-                "longitude": 1.1,
-                "locality": "Gulberg",
-                "elevation": 1.1,
-                "timezone": "Asia/Karachi",
-                "timezone_abbreviation": "GMT+5"
+                "state_prov": "California",
+                "state_code": "US-CA",
+                "district": "Santa Clara",
+                "city": "Mountain View",
+                "zipcode": "94043-1351",
+                "latitude": "37.42240",
+                "longitude": "-122.08421",
+                "locality": "Charleston Terrace",
+                "elevation": "3",
+                "timezone": "America/Los_Angeles",
+                "timezone_abbreviation": "GMT-7"
               },
               "current": {
-                "timestamp": "2024-01-15T09:30:00.000Z",
+                "timestamp": "timestamp",
                 "wave_height": 1.1,
                 "wave_direction": 1.1,
                 "wave_period": 1.1,
@@ -52,7 +52,7 @@ public class MarineWeatherTest : BaseMockServerTest
               "forecast": {
                 "2025-10-01": {
                   "daily": {
-                    "timestamp": "2025-10-01T00:00:00.000Z"
+                    "timestamp": "2025-10-01"
                   },
                   "hourly": [
                     {}

@@ -18,7 +18,7 @@ public class DomainDnsHistoryTest : BaseMockServerTest
               "currentPage": 1,
               "historicalDnsRecords": [
                 {
-                  "queryTime": "2024-01-15T09:30:00.000Z",
+                  "queryTime": "queryTime",
                   "domainName": "domainName",
                   "domainRegistered": true,
                   "dnsTypes": {},

@@ -45,19 +45,19 @@ public record BulkCurrentWeatherResponseBulkItemLocationCity : IJsonOnDeserializ
     /// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
     /// </summary>
     [JsonPropertyName("latitude")]
-    public required float Latitude { get; set; }
+    public required string Latitude { get; set; }
 
     /// <summary>
     /// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
     /// </summary>
     [JsonPropertyName("longitude")]
-    public required float Longitude { get; set; }
+    public required string Longitude { get; set; }
 
     /// <summary>
     /// Elevation above mean sea level in meters at the geocoded coordinates.
     /// </summary>
     [JsonPropertyName("elevation")]
-    public float? Elevation { get; set; }
+    public string? Elevation { get; set; }
 
     /// <summary>
     /// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).

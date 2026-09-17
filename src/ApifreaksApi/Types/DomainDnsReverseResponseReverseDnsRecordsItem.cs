@@ -12,8 +12,11 @@ public record DomainDnsReverseResponseReverseDnsRecordsItem : IJsonOnDeserialize
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
+    /// <summary>
+    /// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    /// </summary>
     [JsonPropertyName("queryTime")]
-    public required DateTime QueryTime { get; set; }
+    public required string QueryTime { get; set; }
 
     [JsonPropertyName("domainName")]
     public required string DomainName { get; set; }

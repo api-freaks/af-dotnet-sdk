@@ -78,8 +78,8 @@ public class TimezoneLookupV2Test : BaseMockServerTest
               "airport_details": {
                 "type": "type",
                 "name": "name",
-                "latitude": 1.1,
-                "longitude": 1.1,
+                "latitude": "latitude",
+                "longitude": "longitude",
                 "elevation_ft": 1,
                 "continent_code": "continent_code",
                 "country_code": "country_code",
@@ -96,8 +96,8 @@ public class TimezoneLookupV2Test : BaseMockServerTest
                 "country_code": "country_code",
                 "country_name": "country_name",
                 "location_type": "location_type",
-                "latitude": 1.1,
-                "longitude": 1.1
+                "latitude": "latitude",
+                "longitude": "longitude"
               }
             }
             """;

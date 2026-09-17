@@ -12,10 +12,10 @@ public record WeatherTimeSeriesResponseHistoricalValueHourlyItem : IJsonOnDeseri
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// ISO 8601 formatted timestamp
+    /// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
     /// </summary>
     [JsonPropertyName("timestamp")]
-    public DateTime? Timestamp { get; set; }
+    public string? Timestamp { get; set; }
 
     /// <summary>
     /// Air temperature at 2 meters (°C)

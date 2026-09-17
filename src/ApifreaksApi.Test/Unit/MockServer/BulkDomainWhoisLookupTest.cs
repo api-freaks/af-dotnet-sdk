@@ -25,7 +25,7 @@ public class BulkDomainWhoisLookupTest : BaseMockServerTest
                 {
                   "status": true,
                   "domain_name": "domain_name",
-                  "query_time": "2024-01-15T09:30:00.000Z",
+                  "query_time": "query_time",
                   "whois_server": "whois_server",
                   "domain_registered": "yes",
                   "create_date": "2023-01-15",

@@ -15,10 +15,10 @@ public record WeatherTimeSeriesResponseHistoricalValueDaily : IJsonOnDeserialize
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// ISO 8601 formatted timestamp
+    /// Date of this daily entry, `YYYY-MM-DD`.
     /// </summary>
     [JsonPropertyName("timestamp")]
-    public DateTime? Timestamp { get; set; }
+    public DateOnly? Timestamp { get; set; }
 
     /// <summary>
     /// Weather condition code
