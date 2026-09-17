@@ -21,10 +21,10 @@ public record DomainWhoisLookupV2ResponseRegistryData : IJsonOnDeserialized
     public string? DomainName { get; set; }
 
     /// <summary>
-    /// Timestamp when the registry-level record was queried.
+    /// Timestamp when the registry-level record was queried (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
     /// </summary>
     [JsonPropertyName("query_time")]
-    public DateTime? QueryTime { get; set; }
+    public string? QueryTime { get; set; }
 
     /// <summary>
     /// Registry WHOIS server that returned this data.

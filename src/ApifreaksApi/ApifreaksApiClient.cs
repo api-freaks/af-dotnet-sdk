@@ -2783,19 +2783,25 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
     }
 
     private async Task<
-        WithRawResponse<DomainAvailabilitySuggestionsResponse>
+        WithRawResponse<
+            OneOf<
+                DomainAvailabilitySuggestionsResponseDomain,
+                DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+            >
+        >
     > DomainAvailabilitySuggestionsAsyncCore(
         DomainAvailabilitySuggestionsRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {
-        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 5)
+        var _queryString = new ApifreaksApi.Core.QueryStringBuilder.Builder(capacity: 6)
             .Add("apiKey", request.ApiKey)
             .Add("format", request.Format)
             .Add("domain", request.Domain)
             .Add("source", request.Source)
             .Add("count", request.Count)
+            .Add("sug", request.Sug)
             .MergeAdditional(options?.AdditionalQueryParameters)
             .Build();
         var _headers = await new ApifreaksApi.Core.HeadersBuilder.Builder()
@@ -2824,10 +2830,18 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
                 .ConfigureAwait(false);
             try
             {
-                var responseData = JsonUtils.Deserialize<DomainAvailabilitySuggestionsResponse>(
-                    responseBody
-                )!;
-                return new WithRawResponse<DomainAvailabilitySuggestionsResponse>()
+                var responseData = JsonUtils.Deserialize<
+                    OneOf<
+                        DomainAvailabilitySuggestionsResponseDomain,
+                        DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+                    >
+                >(responseBody)!;
+                return new WithRawResponse<
+                    OneOf<
+                        DomainAvailabilitySuggestionsResponseDomain,
+                        DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+                    >
+                >()
                 {
                     Data = responseData,
                     RawResponse = new RawResponse()
@@ -2868,6 +2882,8 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
                         throw new NotFoundError(JsonUtils.Deserialize<object>(responseBody));
                     case 406:
                         throw new NotAcceptableError(JsonUtils.Deserialize<object>(responseBody));
+                    case 408:
+                        throw new RequestTimeoutError(JsonUtils.Deserialize<object>(responseBody));
                     case 413:
                         throw new ContentTooLargeError(JsonUtils.Deserialize<object>(responseBody));
                     case 429:
@@ -14277,15 +14293,23 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
     ///     new DomainAvailabilitySuggestionsRequest { ApiKey = "apiKey", Domain = "domain" }
     /// );
     /// </code></example>
-    public WithRawResponseTask<DomainAvailabilitySuggestionsResponse> DomainAvailabilitySuggestionsAsync(
+    public WithRawResponseTask<
+        OneOf<
+            DomainAvailabilitySuggestionsResponseDomain,
+            DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+        >
+    > DomainAvailabilitySuggestionsAsync(
         DomainAvailabilitySuggestionsRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {
-        return new WithRawResponseTask<DomainAvailabilitySuggestionsResponse>(
-            DomainAvailabilitySuggestionsAsyncCore(request, options, cancellationToken)
-        );
+        return new WithRawResponseTask<
+            OneOf<
+                DomainAvailabilitySuggestionsResponseDomain,
+                DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+            >
+        >(DomainAvailabilitySuggestionsAsyncCore(request, options, cancellationToken));
     }
 
     /// <summary>
@@ -16062,7 +16086,7 @@ public partial class ApifreaksApiClient : IApifreaksApiClient
     }
 
     /// <summary>
-    /// Parse up to `50,000 User-Agent strings` at once in a single request.
+    /// Parse up to `100 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
     /// </summary>
     /// <example><code>
     /// await client.BulkUserAgentLookupAsync(

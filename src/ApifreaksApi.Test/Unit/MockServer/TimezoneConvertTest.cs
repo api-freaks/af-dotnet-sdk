@@ -13,8 +13,8 @@ public class TimezoneConvertTest : BaseMockServerTest
     {
         const string mockResponse = """
             {
-              "original_time": "2024-01-15T09:30:00.000Z",
-              "converted_time": "2024-01-15T09:30:00.000Z",
+              "original_time": "original_time",
+              "converted_time": "converted_time",
               "diff_hour": 1.1,
               "diff_min": 1.1
             }

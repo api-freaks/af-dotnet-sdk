@@ -41,10 +41,10 @@ public record BulkScreenshotCaptureResponseResultsItemUrl : IJsonOnDeserialized,
     public bool? FailOnError { get; set; }
 
     [JsonPropertyName("longitude")]
-    public double? Longitude { get; set; }
+    public string? Longitude { get; set; }
 
     [JsonPropertyName("latitude")]
-    public double? Latitude { get; set; }
+    public string? Latitude { get; set; }
 
     [JsonPropertyName("proxy")]
     public string? Proxy { get; set; }

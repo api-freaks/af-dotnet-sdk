@@ -36,19 +36,19 @@ public class BulkCurrentWeatherTest : BaseMockServerTest
               "bulk": [
                 {
                   "location": {
-                    "location_string": "lahore",
-                    "country_name": "Pakistan",
-                    "state_prov": "Punjab",
-                    "city": "Lahore",
+                    "location_string": "New York",
+                    "country_name": "United States",
+                    "state_prov": "New York",
+                    "city": "New York",
                     "locality": "",
-                    "latitude": 1.1,
-                    "longitude": 1.1,
-                    "elevation": 1.1,
-                    "timezone": "Asia/Karachi",
-                    "timezone_abbreviation": "GMT+5"
+                    "latitude": "40.71273",
+                    "longitude": "-74.00602",
+                    "elevation": "6",
+                    "timezone": "America/New_York",
+                    "timezone_abbreviation": "GMT-4"
                   },
                   "current": {
-                    "timestamp": "2025-09-29T17:45:00.000Z",
+                    "timestamp": "2025-09-29T17:45",
                     "temperature_2m": 32.3,
                     "relative_humidity_2m": 61,
                     "apparent_temperature": 37.6,
@@ -79,7 +79,7 @@ public class BulkCurrentWeatherTest : BaseMockServerTest
                       "moon_status": "-"
                     },
                     "air_quality": {
-                      "timestamp": "2024-01-15T09:30:00.000Z",
+                      "timestamp": "timestamp",
                       "european_aqi": 1,
                       "us_aqi": 1,
                       "pm10": 1.1,

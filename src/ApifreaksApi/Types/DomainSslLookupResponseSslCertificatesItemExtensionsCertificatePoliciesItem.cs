@@ -5,14 +5,24 @@ using global::System.Text.Json.Serialization;
 namespace ApifreaksApi;
 
 [Serializable]
-public record DomainAvailabilitySuggestionsResponse : IJsonOnDeserialized
+public record DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
+    : IJsonOnDeserialized
 {
     [JsonExtensionData]
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    [JsonPropertyName("domain_available_response")]
-    public IEnumerable<DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem>? DomainAvailableResponse { get; set; }
+    /// <summary>
+    /// Policy identifier
+    /// </summary>
+    [JsonPropertyName("policyId")]
+    public required string PolicyId { get; set; }
+
+    /// <summary>
+    /// Policy qualifier details
+    /// </summary>
+    [JsonPropertyName("policyQualifier")]
+    public DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier? PolicyQualifier { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

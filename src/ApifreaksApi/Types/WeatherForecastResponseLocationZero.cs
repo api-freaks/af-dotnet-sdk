@@ -15,13 +15,13 @@ public record WeatherForecastResponseLocationZero : IJsonOnDeserialized
     /// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
     /// </summary>
     [JsonPropertyName("latitude")]
-    public required float Latitude { get; set; }
+    public required string Latitude { get; set; }
 
     /// <summary>
     /// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
     /// </summary>
     [JsonPropertyName("longitude")]
-    public required float Longitude { get; set; }
+    public required string Longitude { get; set; }
 
     /// <summary>
     /// Full name of the country corresponding to the provided coordinates.
@@ -51,7 +51,7 @@ public record WeatherForecastResponseLocationZero : IJsonOnDeserialized
     /// Height above mean sea level in meters for the specified coordinates.
     /// </summary>
     [JsonPropertyName("elevation")]
-    public float? Elevation { get; set; }
+    public string? Elevation { get; set; }
 
     /// <summary>
     /// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).

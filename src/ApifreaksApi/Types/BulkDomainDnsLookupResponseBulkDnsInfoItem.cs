@@ -19,22 +19,28 @@ public record BulkDomainDnsLookupResponseBulkDnsInfoItem : IJsonOnDeserialized
     public required bool Status { get; set; }
 
     /// <summary>
-    /// Time at which the query was made (Format:YYYY-MM-DD HH:mm:ss).
+    /// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
     /// </summary>
     [JsonPropertyName("queryTime")]
-    public required DateTime QueryTime { get; set; }
+    public required string QueryTime { get; set; }
 
     /// <summary>
-    /// Queried domain.
+    /// Queried domain. Absent when this result is for a queried IP address instead (see `ipAddress`).
     /// </summary>
     [JsonPropertyName("domainName")]
-    public required string DomainName { get; set; }
+    public string? DomainName { get; set; }
 
     /// <summary>
-    /// Indicates whether the domain is registered.
+    /// Indicates whether the domain is registered. Absent when this result is for a queried IP address instead.
     /// </summary>
     [JsonPropertyName("domainRegistered")]
-    public required bool DomainRegistered { get; set; }
+    public bool? DomainRegistered { get; set; }
+
+    /// <summary>
+    /// Queried IP address, present when this result is for reverse DNS (PTR) enrichment instead of a domain name.
+    /// </summary>
+    [JsonPropertyName("ipAddress")]
+    public string? IpAddress { get; set; }
 
     [JsonPropertyName("dnsTypes")]
     public required BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes DnsTypes { get; set; }

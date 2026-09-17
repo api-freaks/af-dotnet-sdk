@@ -12,10 +12,10 @@ public record ZipcodeDistanceResponse : IJsonOnDeserialized
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Number of distance results returned
+    /// Number of distance results returned (may be less than the number of requested compare codes).
     /// </summary>
-    [JsonPropertyName("results_count")]
-    public string? ResultsCount { get; set; }
+    [JsonPropertyName("result_count")]
+    public int? ResultCount { get; set; }
 
     [JsonPropertyName("results")]
     public IEnumerable<ZipcodeDistanceResponseResultsItem>? Results { get; set; }

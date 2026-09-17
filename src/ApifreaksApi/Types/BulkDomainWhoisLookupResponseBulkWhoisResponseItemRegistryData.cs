@@ -14,8 +14,11 @@ public record BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData : I
     [JsonPropertyName("domain_name")]
     public string? DomainName { get; set; }
 
+    /// <summary>
+    /// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    /// </summary>
     [JsonPropertyName("query_time")]
-    public DateTime? QueryTime { get; set; }
+    public string? QueryTime { get; set; }
 
     [JsonPropertyName("whois_server")]
     public string? WhoisServer { get; set; }

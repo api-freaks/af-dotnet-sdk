@@ -21,8 +21,11 @@ public record DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
     [JsonPropertyName("domain_name")]
     public required string DomainName { get; set; }
 
+    /// <summary>
+    /// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    /// </summary>
     [JsonPropertyName("query_time")]
-    public required DateTime QueryTime { get; set; }
+    public required string QueryTime { get; set; }
 
     [JsonPropertyName("whois_server")]
     public required string WhoisServer { get; set; }

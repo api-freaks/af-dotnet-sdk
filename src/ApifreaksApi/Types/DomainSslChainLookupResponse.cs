@@ -14,8 +14,11 @@ public record DomainSslChainLookupResponse : IJsonOnDeserialized
     [JsonPropertyName("domainName")]
     public required string DomainName { get; set; }
 
+    /// <summary>
+    /// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    /// </summary>
     [JsonPropertyName("queryTime")]
-    public required DateTime QueryTime { get; set; }
+    public required string QueryTime { get; set; }
 
     [JsonPropertyName("sslCertificates")]
     public IEnumerable<DomainSslChainLookupResponseSslCertificatesItem> SslCertificates { get; set; } =

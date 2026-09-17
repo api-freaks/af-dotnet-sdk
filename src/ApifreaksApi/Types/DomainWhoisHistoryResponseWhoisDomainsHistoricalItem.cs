@@ -30,10 +30,10 @@ public record DomainWhoisHistoryResponseWhoisDomainsHistoricalItem : IJsonOnDese
     public required string DomainName { get; set; }
 
     /// <summary>
-    /// The timestamp when the query was made.
+    /// The timestamp when the query was made (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
     /// </summary>
     [JsonPropertyName("query_time")]
-    public required DateTime QueryTime { get; set; }
+    public required string QueryTime { get; set; }
 
     /// <summary>
     /// The WHOIS server that provided the domain information.

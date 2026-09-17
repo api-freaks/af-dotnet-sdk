@@ -14,7 +14,7 @@ public class DomainSslLookupTest : BaseMockServerTest
         const string mockResponse = """
             {
               "domainName": "domainName",
-              "queryTime": "2024-01-15T09:30:00.000Z",
+              "queryTime": "queryTime",
               "sslCertificates": [
                 {
                   "chainOrder": "chainOrder",
@@ -39,21 +39,7 @@ public class DomainSslLookupTest : BaseMockServerTest
                     "subjectKeyIdentifier": "subjectKeyIdentifier",
                     "keyUsages": [
                       "keyUsages"
-                    ],
-                    "extendedKeyUsages": [
-                      "extendedKeyUsages"
-                    ],
-                    "authorityInfoAccess": {
-                      "issuers": [
-                        "issuers"
-                      ],
-                      "ocsp": [
-                        "ocsp"
-                      ]
-                    },
-                    "certificatePolicies": {
-                      "policyId": "policyId"
-                    }
+                    ]
                   },
                   "pemRaw": "pemRaw"
                 }

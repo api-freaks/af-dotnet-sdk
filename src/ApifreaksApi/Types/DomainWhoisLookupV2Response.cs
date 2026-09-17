@@ -36,7 +36,7 @@ public record DomainWhoisLookupV2Response : IJsonOnDeserialized
     /// WHOIS or RDAP server that provided this record.
     /// </summary>
     [JsonPropertyName("whois_server")]
-    public required string WhoisServer { get; set; }
+    public string? WhoisServer { get; set; }
 
     /// <summary>
     /// Domain registration status; 'restricted' means the registry withholds registration details.

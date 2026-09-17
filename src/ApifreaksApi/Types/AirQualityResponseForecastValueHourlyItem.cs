@@ -12,10 +12,10 @@ public record AirQualityResponseForecastValueHourlyItem : IJsonOnDeserialized
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// ISO 8601 formatted timestamp
+    /// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
     /// </summary>
     [JsonPropertyName("timestamp")]
-    public DateTime? Timestamp { get; set; }
+    public string? Timestamp { get; set; }
 
     /// <summary>
     /// Concentration of particulate matter ≤10 micrometers (μg/m³)

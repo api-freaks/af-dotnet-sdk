@@ -13,13 +13,8 @@ public class DomainAvailabilitySuggestionsTest : BaseMockServerTest
     {
         const string mockResponse = """
             {
-              "domain_available_response": [
-                {
-                  "domain": "domain",
-                  "domainAvailability": true,
-                  "message": "message"
-                }
-              ]
+              "domain": "domain",
+              "domainAvailability": true
             }
             """;
 
