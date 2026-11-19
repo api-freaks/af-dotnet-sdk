@@ -55,7 +55,7 @@ public record PdfConvertToGifRequest
     public string? ImageSmoothing { get; set; }
 
     /// <summary>
-    /// Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
+    /// Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black &amp; white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
     /// </summary>
     [JsonIgnore]
     public PdfConvertToGifRequestProfile? Profile { get; set; }

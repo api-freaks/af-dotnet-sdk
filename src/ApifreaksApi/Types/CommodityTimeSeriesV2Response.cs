@@ -39,6 +39,15 @@ public record CommodityTimeSeriesV2Response : IJsonOnDeserialized
     > Rates { get; set; } =
         new Dictionary<string, Dictionary<string, CommodityTimeSeriesV2ResponseRatesValueValue>>();
 
+    /// <summary>
+    /// Present only on a 206 Partial Content response, when some requested symbols could not be resolved on any date in the range. Map of each unresolved symbol to a detail message and optional close-match suggestions.
+    /// </summary>
+    [JsonPropertyName("unresolved")]
+    public Dictionary<
+        string,
+        CommodityTimeSeriesV2ResponseUnresolvedValue
+    >? Unresolved { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

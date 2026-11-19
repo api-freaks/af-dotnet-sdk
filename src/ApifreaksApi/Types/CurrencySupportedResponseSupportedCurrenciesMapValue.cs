@@ -14,14 +14,23 @@ public record CurrencySupportedResponseSupportedCurrenciesMapValue : IJsonOnDese
     [JsonPropertyName("currencyCode")]
     public required string CurrencyCode { get; set; }
 
+    /// <summary>
+    /// Currency name; null for some entries (e.g. crypto tokens).
+    /// </summary>
     [JsonPropertyName("currencyName")]
-    public required string CurrencyName { get; set; }
+    public string? CurrencyName { get; set; }
 
+    /// <summary>
+    /// Country code; null for currencies not tied to a country.
+    /// </summary>
     [JsonPropertyName("countryCode")]
-    public required string CountryCode { get; set; }
+    public string? CountryCode { get; set; }
 
+    /// <summary>
+    /// Country name; null for currencies not tied to a country.
+    /// </summary>
     [JsonPropertyName("countryName")]
-    public required string CountryName { get; set; }
+    public string? CountryName { get; set; }
 
     [JsonPropertyName("status")]
     public required CurrencySupportedResponseSupportedCurrenciesMapValueStatus Status { get; set; }

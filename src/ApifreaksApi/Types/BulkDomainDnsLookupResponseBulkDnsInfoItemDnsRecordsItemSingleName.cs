@@ -31,7 +31,7 @@ public record BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemSingleName
     public required int RRsetType { get; set; }
 
     /// <summary>
-    /// Name server for the domain
+    /// The name server (NS records), or the host name the IP address resolves to (PTR records from IP address lookups).
     /// </summary>
     [JsonPropertyName("singleName")]
     public required string SingleName { get; set; }

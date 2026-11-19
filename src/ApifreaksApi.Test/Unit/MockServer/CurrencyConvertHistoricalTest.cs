@@ -9,7 +9,51 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class CurrencyConvertHistoricalTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "date": "date",
+              "from": "from",
+              "to": "to",
+              "rate": "rate",
+              "givenAmount": "givenAmount",
+              "convertedAmount": "convertedAmount"
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/currency/converter/historical/prices")
+                    .WithParam("apiKey", "apiKey")
+                    .WithParam("from", "from")
+                    .WithParam("to", "to")
+                    .WithParam("date", "2023-01-15")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.CurrencyConvertHistoricalAsync(
+            new CurrencyConvertHistoricalRequest
+            {
+                ApiKey = "apiKey",
+                From = "from",
+                To = "to",
+                Date = new DateOnly(2023, 1, 15),
+            }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

@@ -10,8 +10,6 @@ public readonly record struct ScreenshotCaptureRequestOutput : IStringEnum
 {
     public static readonly ScreenshotCaptureRequestOutput Json = new(Values.Json);
 
-    public static readonly ScreenshotCaptureRequestOutput Image = new(Values.Image);
-
     public ScreenshotCaptureRequestOutput(string value)
     {
         Value = value;
@@ -110,7 +108,5 @@ public readonly record struct ScreenshotCaptureRequestOutput : IStringEnum
     public static class Values
     {
         public const string Json = "json";
-
-        public const string Image = "image";
     }
 }

@@ -9,7 +9,103 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class CurrentWeatherTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "location": {
+                "continent_code": "continent_code",
+                "continent_name": "continent_name",
+                "country_code2": "country_code2",
+                "country_code3": "country_code3",
+                "country_name": "country_name",
+                "country_name_official": "country_name_official",
+                "is_eu": true,
+                "state_prov": "state_prov",
+                "state_code": "state_code",
+                "district": "district",
+                "city": "city",
+                "zipcode": "zipcode",
+                "latitude": "latitude",
+                "longitude": "longitude",
+                "locality": "locality",
+                "elevation": "elevation",
+                "timezone": "timezone",
+                "timezone_abbreviation": "timezone_abbreviation"
+              },
+              "current": {
+                "timestamp": "timestamp",
+                "temperature_2m": 1.1,
+                "relative_humidity_2m": 1.1,
+                "apparent_temperature": 1.1,
+                "snowfall": 1.1,
+                "rain": 1.1,
+                "showers": 1.1,
+                "precipitation": 1.1,
+                "weather_code": 1,
+                "cloud_cover": 1.1,
+                "pressure_msl": 1.1,
+                "surface_pressure": 1.1,
+                "wind_speed_10m": 1.1,
+                "wind_direction_10m": 1,
+                "wind_gusts_10m": 1.1,
+                "astronomy": {
+                  "date": "2023-01-15",
+                  "mid_night": "mid_night",
+                  "night_end": "night_end",
+                  "sunrise": "sunrise",
+                  "solar_noon": "solar_noon",
+                  "sunset": "sunset",
+                  "night_begin": "night_begin",
+                  "day_length": "day_length",
+                  "sun_status": "sun_status",
+                  "moon_phase": "moon_phase",
+                  "moonrise": "moonrise",
+                  "moonset": "moonset",
+                  "moon_status": "moon_status"
+                },
+                "air_quality": {
+                  "timestamp": "timestamp",
+                  "european_aqi": 1,
+                  "us_aqi": 1,
+                  "pm10": 1.1,
+                  "pm2_5": 1.1,
+                  "carbon_monoxide": 1.1,
+                  "nitrogen_dioxide": 1.1,
+                  "sulphur_dioxide": 1.1,
+                  "ozone": 1.1,
+                  "dust": 1.1,
+                  "uv_index": 1.1,
+                  "aerosol_optical_depth": 1.1,
+                  "uv_index_clear_sky": 1.1
+                }
+              }
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/weather/current")
+                    .WithParam("apiKey", "apiKey")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.CurrentWeatherAsync(
+            new CurrentWeatherRequest { ApiKey = "apiKey" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

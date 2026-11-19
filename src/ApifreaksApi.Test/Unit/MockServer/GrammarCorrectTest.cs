@@ -9,7 +9,45 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class GrammarCorrectTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string requestJson = """
+            {
+              "text": "text"
+            }
+            """;
+
+        const string mockResponse = """
+            {
+              "grammar_correction": "grammar_correction"
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/readability/grammar/correct")
+                    .WithParam("apiKey", "apiKey")
+                    .WithHeader("Content-Type", "application/json")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.GrammarCorrectAsync(
+            new GrammarCorrectRequest { ApiKey = "apiKey", Text = "text" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string requestJson = """
             {

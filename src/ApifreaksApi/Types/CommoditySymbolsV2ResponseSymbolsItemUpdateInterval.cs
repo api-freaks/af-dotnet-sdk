@@ -38,6 +38,10 @@ public readonly record struct CommoditySymbolsV2ResponseSymbolsItemUpdateInterva
         Values.PerMonth
     );
 
+    public static readonly CommoditySymbolsV2ResponseSymbolsItemUpdateInterval Per6Months = new(
+        Values.Per6Months
+    );
+
     public CommoditySymbolsV2ResponseSymbolsItemUpdateInterval(string value)
     {
         Value = value;
@@ -156,5 +160,7 @@ public readonly record struct CommoditySymbolsV2ResponseSymbolsItemUpdateInterva
         public const string PerWeek = "PER_WEEK";
 
         public const string PerMonth = "PER_MONTH";
+
+        public const string Per6Months = "PER_6_MONTHS";
     }
 }

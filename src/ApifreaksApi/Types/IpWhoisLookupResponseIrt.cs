@@ -89,6 +89,30 @@ public record IpWhoisLookupResponseIrt : IJsonOnDeserialized
     [JsonPropertyName("source")]
     public string? Source { get; set; }
 
+    /// <summary>
+    /// Abuse contacts linked to this IRT.
+    /// </summary>
+    [JsonPropertyName("abuse_contacts")]
+    public IEnumerable<IpWhoisLookupResponseIrtAbuseContactsItem>? AbuseContacts { get; set; }
+
+    /// <summary>
+    /// Administrative contacts linked to this IRT.
+    /// </summary>
+    [JsonPropertyName("administrative_contacts")]
+    public IEnumerable<IpWhoisLookupResponseIrtAdministrativeContactsItem>? AdministrativeContacts { get; set; }
+
+    /// <summary>
+    /// Organization object containing the registrant's handle, name, address, contact details, and linked admin/tech/abuse contacts.
+    /// </summary>
+    [JsonPropertyName("organization")]
+    public IpWhoisLookupResponseIrtOrganization? Organization { get; set; }
+
+    /// <summary>
+    /// Technical contacts linked to this IRT.
+    /// </summary>
+    [JsonPropertyName("technical_contacts")]
+    public IEnumerable<IpWhoisLookupResponseIrtTechnicalContactsItem>? TechnicalContacts { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

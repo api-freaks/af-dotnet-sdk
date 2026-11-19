@@ -9,7 +9,59 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class ZipcodeLookupTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "results": [
+                {
+                  "code": "code",
+                  "country_code": "country_code",
+                  "region": "region",
+                  "region_code": "region_code",
+                  "city": "city",
+                  "locality": "locality",
+                  "latitude": 1.1,
+                  "longitude": 1.1
+                },
+                {
+                  "code": "code",
+                  "country_code": "country_code",
+                  "region": "region",
+                  "region_code": "region_code",
+                  "city": "city",
+                  "locality": "locality",
+                  "latitude": 1.1,
+                  "longitude": 1.1
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/zipcode/lookup")
+                    .WithParam("apiKey", "apiKey")
+                    .WithParam("code", "code")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.ZipcodeLookupAsync(
+            new ZipcodeLookupRequest { ApiKey = "apiKey", Code = "code" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

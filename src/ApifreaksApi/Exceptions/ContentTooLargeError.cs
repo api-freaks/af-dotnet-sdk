@@ -4,5 +4,13 @@ namespace ApifreaksApi;
 /// This exception type will be thrown for any non-2XX API responses.
 /// </summary>
 [Serializable]
-public class ContentTooLargeError(object body)
-    : ApifreaksApiApiException("ContentTooLargeError", 413, body);
+public class ContentTooLargeError(
+    ContentTooLargeErrorBody body,
+    ApifreaksApi.RawResponse? rawResponse = null
+) : ApifreaksApiApiException("ContentTooLargeError", 413, body, rawResponse: rawResponse)
+{
+    /// <summary>
+    /// The body of the response that triggered the exception.
+    /// </summary>
+    public new ContentTooLargeErrorBody Body => body;
+}

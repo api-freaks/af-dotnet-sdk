@@ -10,8 +10,6 @@ public readonly record struct BulkCurrentWeatherRequestFormat : IStringEnum
 {
     public static readonly BulkCurrentWeatherRequestFormat Json = new(Values.Json);
 
-    public static readonly BulkCurrentWeatherRequestFormat Xml = new(Values.Xml);
-
     public BulkCurrentWeatherRequestFormat(string value)
     {
         Value = value;
@@ -110,7 +108,5 @@ public readonly record struct BulkCurrentWeatherRequestFormat : IStringEnum
     public static class Values
     {
         public const string Json = "json";
-
-        public const string Xml = "xml";
     }
 }

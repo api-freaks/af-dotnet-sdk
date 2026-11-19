@@ -32,7 +32,7 @@ Or add it directly to your `.csproj`:
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="ApifreaksApi" Version="0.1.0" />
+  <PackageReference Include="ApifreaksApi" Version="1.2.0" />
 </ItemGroup>
 ```
 
@@ -103,6 +103,8 @@ catch (ApifreaksApiException e)
     Console.WriteLine($"SDK error: {e.Message}");
 }
 ```
+
+> **Note:** `GetCreditsUsageAsync` requires an organization admin API key. Other keys get a 403 (`ForbiddenError`).
 
 ## Request Types
 

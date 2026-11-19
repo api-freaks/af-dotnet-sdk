@@ -82,6 +82,18 @@ public record TimezoneLookupResponseTimeZone : IJsonOnDeserialized, IJsonOnSeria
     [JsonPropertyName("dst_end")]
     public TimezoneLookupResponseTimeZoneDstEnd? DstEnd { get; set; }
 
+    /// <summary>
+    /// Abbreviation of the DST time zone. Always present as a key; holds an empty string when dst_exists is false.
+    /// </summary>
+    [JsonPropertyName("dst_tz_abbreviation")]
+    public string? DstTzAbbreviation { get; set; }
+
+    /// <summary>
+    /// Full name of the DST time zone. Always present as a key; holds an empty string when dst_exists is false.
+    /// </summary>
+    [JsonPropertyName("dst_tz_full_name")]
+    public string? DstTzFullName { get; set; }
+
     [JsonIgnore]
     public AdditionalProperties AdditionalProperties { get; set; } = new();
 

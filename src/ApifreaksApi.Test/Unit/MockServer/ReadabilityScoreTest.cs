@@ -9,7 +9,83 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class ReadabilityScoreTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string requestJson = """
+            {
+              "text": "text"
+            }
+            """;
+
+        const string mockResponse = """
+            {
+              "readability_scores": {
+                "flesch_reading_ease": {
+                  "score": 1.1,
+                  "level": "level"
+                },
+                "flesch_kincaid_grade": {
+                  "score": 1.1,
+                  "level": "level"
+                },
+                "gunning_fog": {
+                  "score": 1.1,
+                  "level": "level"
+                },
+                "smog_index": {
+                  "score": 1.1,
+                  "level": "level"
+                },
+                "coleman_liau_index": {
+                  "score": 1.1,
+                  "level": "level"
+                },
+                "automated_readability_index": {
+                  "score": 1.1,
+                  "level": "level"
+                }
+              },
+              "sentence_readability": [
+                {
+                  "sentence": "sentence",
+                  "readability_grade": 1.1,
+                  "readability_level": "Very Easy"
+                },
+                {
+                  "sentence": "sentence",
+                  "readability_grade": 1.1,
+                  "readability_level": "Very Easy"
+                }
+              ],
+              "readability_grade": 1.1
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/readability/score")
+                    .WithParam("apiKey", "apiKey")
+                    .WithHeader("Content-Type", "application/json")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.ReadabilityScoreAsync(
+            new ReadabilityScoreRequest { ApiKey = "apiKey", Text = "text" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string requestJson = """
             {

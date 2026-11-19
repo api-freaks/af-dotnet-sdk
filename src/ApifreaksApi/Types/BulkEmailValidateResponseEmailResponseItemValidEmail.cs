@@ -14,9 +14,28 @@ public readonly record struct BulkEmailValidateResponseEmailResponseItemValidEma
         Values.Valid
     );
 
+    public static readonly BulkEmailValidateResponseEmailResponseItemValidEmail AcceptAll = new(
+        Values.AcceptAll
+    );
+
     public static readonly BulkEmailValidateResponseEmailResponseItemValidEmail Invalid = new(
         Values.Invalid
     );
+
+    public static readonly BulkEmailValidateResponseEmailResponseItemValidEmail InvalidEmail = new(
+        Values.InvalidEmail
+    );
+
+    public static readonly BulkEmailValidateResponseEmailResponseItemValidEmail Unknown = new(
+        Values.Unknown
+    );
+
+    public static readonly BulkEmailValidateResponseEmailResponseItemValidEmail Risky = new(
+        Values.Risky
+    );
+
+    public static readonly BulkEmailValidateResponseEmailResponseItemValidEmail AppServerBlocked =
+        new(Values.AppServerBlocked);
 
     public BulkEmailValidateResponseEmailResponseItemValidEmail(string value)
     {
@@ -125,6 +144,16 @@ public readonly record struct BulkEmailValidateResponseEmailResponseItemValidEma
     {
         public const string Valid = "valid";
 
+        public const string AcceptAll = "accept_all";
+
         public const string Invalid = "invalid";
+
+        public const string InvalidEmail = "INVALID_EMAIL";
+
+        public const string Unknown = "unknown";
+
+        public const string Risky = "risky";
+
+        public const string AppServerBlocked = "app_server_blocked";
     }
 }

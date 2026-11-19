@@ -33,7 +33,7 @@ public record DomainWhoisHistoryResponseWhoisDomainsHistoricalItem : IJsonOnDese
     /// The timestamp when the query was made (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
     /// </summary>
     [JsonPropertyName("query_time")]
-    public required string QueryTime { get; set; }
+    public string? QueryTime { get; set; }
 
     /// <summary>
     /// The WHOIS server that provided the domain information.
@@ -45,7 +45,7 @@ public record DomainWhoisHistoryResponseWhoisDomainsHistoricalItem : IJsonOnDese
     /// Domain registration status.
     /// </summary>
     [JsonPropertyName("domain_registered")]
-    public required DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered DomainRegistered { get; set; }
+    public DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered? DomainRegistered { get; set; }
 
     /// <summary>
     /// Date when the domain was initially registered.

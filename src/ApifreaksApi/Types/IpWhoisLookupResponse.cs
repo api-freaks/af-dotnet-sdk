@@ -44,6 +44,18 @@ public record IpWhoisLookupResponse : IJsonOnDeserialized
     [JsonPropertyName("whois_raw_response")]
     public string? WhoisRawResponse { get; set; }
 
+    /// <summary>
+    /// BGP route objects announced by this IP's network.
+    /// </summary>
+    [JsonPropertyName("routes")]
+    public IEnumerable<IpWhoisLookupResponseRoutesItem>? Routes { get; set; }
+
+    /// <summary>
+    /// WHOIS response from the rwhois server, if available.
+    /// </summary>
+    [JsonPropertyName("r_whois_raw_response")]
+    public string? RWhoisRawResponse { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

@@ -15,10 +15,10 @@ public record DomainAvailabilitySuggestionsResponseDomain : IJsonOnDeserialized
         new Dictionary<string, JsonElement>();
 
     [JsonPropertyName("domain")]
-    public string? Domain { get; set; }
+    public required string Domain { get; set; }
 
     [JsonPropertyName("domainAvailability")]
-    public bool? DomainAvailability { get; set; }
+    public required bool DomainAvailability { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

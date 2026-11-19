@@ -9,7 +9,51 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class VatValidateTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "country_code": "country_code",
+              "vat_number": "vat_number",
+              "requester_country_code": "requester_country_code",
+              "requester_vat_number": "requester_vat_number",
+              "requested_at": "2024-01-15T09:30:00.000Z",
+              "validation": {
+                "is_valid": true,
+                "consultation_number": "consultation_number",
+                "consultation_authority": "consultation_authority"
+              },
+              "company": {
+                "company_name": "company_name",
+                "company_address": "company_address"
+              }
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/vat/validation")
+                    .WithParam("apiKey", "apiKey")
+                    .WithParam("vatNumber", "vatNumber")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.VatValidateAsync(
+            new VatValidateRequest { ApiKey = "apiKey", VatNumber = "vatNumber" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

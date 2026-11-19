@@ -98,6 +98,18 @@ public record MarineWeatherResponseCurrent : IJsonOnDeserialized
     [JsonPropertyName("ocean_current_direction")]
     public double? OceanCurrentDirection { get; set; }
 
+    /// <summary>
+    /// Peak period of swell waves in seconds. Frequently null even at locations with other wave data present.
+    /// </summary>
+    [JsonPropertyName("swell_wave_peak_period")]
+    public double? SwellWavePeakPeriod { get; set; }
+
+    /// <summary>
+    /// Peak period of locally generated wind waves in seconds. Frequently null even at locations with other wave data present.
+    /// </summary>
+    [JsonPropertyName("wind_wave_peak_period")]
+    public double? WindWavePeakPeriod { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

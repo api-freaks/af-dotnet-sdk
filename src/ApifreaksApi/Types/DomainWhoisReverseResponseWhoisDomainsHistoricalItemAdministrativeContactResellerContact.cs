@@ -48,6 +48,18 @@ public record DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
     [JsonPropertyName("mailing_address")]
     public string? MailingAddress { get; set; }
 
+    /// <summary>
+    /// Registry handle for the contact, when published.
+    /// </summary>
+    [JsonPropertyName("handle")]
+    public string? Handle { get; set; }
+
+    /// <summary>
+    /// Contact identifier.
+    /// </summary>
+    [JsonPropertyName("id")]
+    public string? Id { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

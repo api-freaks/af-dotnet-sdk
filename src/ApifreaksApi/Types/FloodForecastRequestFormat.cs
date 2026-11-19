@@ -10,8 +10,6 @@ public readonly record struct FloodForecastRequestFormat : IStringEnum
 {
     public static readonly FloodForecastRequestFormat Json = new(Values.Json);
 
-    public static readonly FloodForecastRequestFormat Xml = new(Values.Xml);
-
     public FloodForecastRequestFormat(string value)
     {
         Value = value;
@@ -109,7 +107,5 @@ public readonly record struct FloodForecastRequestFormat : IStringEnum
     public static class Values
     {
         public const string Json = "json";
-
-        public const string Xml = "xml";
     }
 }

@@ -46,7 +46,7 @@ public record PdfUnrestrictRequest
     /// Sets the user password for the PDF file. Password Length should be between 6 and 128 characters.
     /// </summary>
     [JsonIgnore]
-    public string? UserPassword { get; set; }
+    public required string UserPassword { get; set; }
 
     /// <summary>
     /// Sets the owner password for the PDF file. If the owner password is not provided, the `user_password` will also be used as the owner password. Password Length should be between 6 and 128 characters.

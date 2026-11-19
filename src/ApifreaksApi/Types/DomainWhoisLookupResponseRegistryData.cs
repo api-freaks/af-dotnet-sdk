@@ -41,8 +41,17 @@ public record DomainWhoisLookupResponseRegistryData : IJsonOnDeserialized
     [JsonPropertyName("domain_status")]
     public IEnumerable<string>? DomainStatus { get; set; }
 
+    /// <summary>
+    /// Deprecated: the API never returns this key; the raw registry WHOIS text is in `whois_raw_registery`.
+    /// </summary>
     [JsonPropertyName("whois_raw_registry")]
     public string? WhoisRawRegistry { get; set; }
+
+    /// <summary>
+    /// Raw WHOIS text returned by the registry's WHOIS server (the key is spelled `whois_raw_registery` by the API).
+    /// </summary>
+    [JsonPropertyName("whois_raw_registery")]
+    public string? WhoisRawRegistery { get; set; }
 
     [JsonPropertyName("domain_registrar")]
     public DomainWhoisLookupResponseRegistryDataDomainRegistrar? DomainRegistrar { get; set; }

@@ -10,8 +10,6 @@ public readonly record struct AirQualityRequestFormat : IStringEnum
 {
     public static readonly AirQualityRequestFormat Json = new(Values.Json);
 
-    public static readonly AirQualityRequestFormat Xml = new(Values.Xml);
-
     public AirQualityRequestFormat(string value)
     {
         Value = value;
@@ -109,7 +107,5 @@ public readonly record struct AirQualityRequestFormat : IStringEnum
     public static class Values
     {
         public const string Json = "json";
-
-        public const string Xml = "xml";
     }
 }

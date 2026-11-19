@@ -36,6 +36,15 @@ public record CommodityFluctuationV2Response : IJsonOnDeserialized
     public Dictionary<string, CommodityFluctuationV2ResponseRatesValue> Rates { get; set; } =
         new Dictionary<string, CommodityFluctuationV2ResponseRatesValue>();
 
+    /// <summary>
+    /// Present only on a 206 Partial Content response, when some requested symbols could not be resolved. Map of each unresolved symbol to a detail message and optional close-match suggestions.
+    /// </summary>
+    [JsonPropertyName("unresolved")]
+    public Dictionary<
+        string,
+        CommodityFluctuationV2ResponseUnresolvedValue
+    >? Unresolved { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

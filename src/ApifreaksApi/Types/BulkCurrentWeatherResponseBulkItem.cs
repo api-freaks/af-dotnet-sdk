@@ -17,9 +17,9 @@ public record BulkCurrentWeatherResponseBulkItem : IJsonOnDeserialized
     /// </summary>
     [JsonPropertyName("location")]
     public required OneOf<
-        BulkCurrentWeatherResponseBulkItemLocationZero,
         BulkCurrentWeatherResponseBulkItemLocationContinentCode,
-        BulkCurrentWeatherResponseBulkItemLocationCity
+        BulkCurrentWeatherResponseBulkItemLocationCity,
+        BulkCurrentWeatherResponseBulkItemLocationZero
     > Location { get; set; }
 
     /// <summary>

@@ -1,7 +1,6 @@
 using ApifreaksApi.Core;
 using global::System.Text.Json;
 using global::System.Text.Json.Serialization;
-using OneOf;
 
 namespace ApifreaksApi;
 
@@ -25,59 +24,11 @@ public record WebScrapeRequestBodyBlockUrl : IJsonOnDeserialized
     public IEnumerable<WebScrapeRequestBodyBlockUrlCookiesItem>? Cookies { get; set; }
 
     /// <summary>
-    /// An ordered list of step-by-step scraping instructions to be executed in the browser.
+    /// An ordered list of step-by-step scraping instructions to be executed in the browser. Each item is one Instruction object, with exactly one action field set.
     /// </summary>
     [JsonPropertyName("instructions")]
-    public IEnumerable<
-        OneOf<
-            WebScrapeRequestBodyBlockUrlInstructionsItemFill,
-            WebScrapeRequestBodyBlockUrlInstructionsItemClick,
-            WebScrapeRequestBodyBlockUrlInstructionsItemClickIfExist,
-            WebScrapeRequestBodyBlockUrlInstructionsItemEnter,
-            WebScrapeRequestBodyBlockUrlInstructionsItemNewTab,
-            WebScrapeRequestBodyBlockUrlInstructionsItemMoveToRelativeTab,
-            WebScrapeRequestBodyBlockUrlInstructionsItemWait,
-            WebScrapeRequestBodyBlockUrlInstructionsItemWaitFor,
-            WebScrapeRequestBodyBlockUrlInstructionsItemSelect,
-            WebScrapeRequestBodyBlockUrlInstructionsItemJsExe,
-            WebScrapeRequestBodyBlockUrlInstructionsItemConditionalCheck,
-            WebScrapeRequestBodyBlockUrlInstructionsItemClickButtonByValue,
-            WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptcha,
-            WebScrapeRequestBodyBlockUrlInstructionsItemBlockElement,
-            WebScrapeRequestBodyBlockUrlInstructionsItemExtract,
-            WebScrapeRequestBodyBlockUrlInstructionsItemFillImageCaptcha,
-            WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToIframe,
-            WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToParentFrame,
-            WebScrapeRequestBodyBlockUrlInstructionsItemResolveAudioCaptcha,
-            WebScrapeRequestBodyBlockUrlInstructionsItemScreenshot,
-            WebScrapeRequestBodyBlockUrlInstructionsItemSaveimage
-        >
-    > Instructions { get; set; } =
-        new List<
-            OneOf<
-                WebScrapeRequestBodyBlockUrlInstructionsItemFill,
-                WebScrapeRequestBodyBlockUrlInstructionsItemClick,
-                WebScrapeRequestBodyBlockUrlInstructionsItemClickIfExist,
-                WebScrapeRequestBodyBlockUrlInstructionsItemEnter,
-                WebScrapeRequestBodyBlockUrlInstructionsItemNewTab,
-                WebScrapeRequestBodyBlockUrlInstructionsItemMoveToRelativeTab,
-                WebScrapeRequestBodyBlockUrlInstructionsItemWait,
-                WebScrapeRequestBodyBlockUrlInstructionsItemWaitFor,
-                WebScrapeRequestBodyBlockUrlInstructionsItemSelect,
-                WebScrapeRequestBodyBlockUrlInstructionsItemJsExe,
-                WebScrapeRequestBodyBlockUrlInstructionsItemConditionalCheck,
-                WebScrapeRequestBodyBlockUrlInstructionsItemClickButtonByValue,
-                WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptcha,
-                WebScrapeRequestBodyBlockUrlInstructionsItemBlockElement,
-                WebScrapeRequestBodyBlockUrlInstructionsItemExtract,
-                WebScrapeRequestBodyBlockUrlInstructionsItemFillImageCaptcha,
-                WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToIframe,
-                WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToParentFrame,
-                WebScrapeRequestBodyBlockUrlInstructionsItemResolveAudioCaptcha,
-                WebScrapeRequestBodyBlockUrlInstructionsItemScreenshot,
-                WebScrapeRequestBodyBlockUrlInstructionsItemSaveimage
-            >
-        >();
+    public IEnumerable<WebScrapeRequestBodyBlockUrlInstructionsItem> Instructions { get; set; } =
+        new List<WebScrapeRequestBodyBlockUrlInstructionsItem>();
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

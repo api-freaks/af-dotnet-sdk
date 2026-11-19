@@ -14,6 +14,9 @@ public record BulkScreenshotCaptureResponseResultsItem : IJsonOnDeserialized
     [JsonPropertyName("status")]
     public required string Status { get; set; }
 
+    /// <summary>
+    /// Error details for a failed URL; null when the capture succeeded.
+    /// </summary>
     [JsonPropertyName("error_message")]
     public string? ErrorMessage { get; set; }
 

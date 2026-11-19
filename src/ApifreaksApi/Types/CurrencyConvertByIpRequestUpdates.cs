@@ -10,13 +10,13 @@ namespace ApifreaksApi;
 [Serializable]
 public readonly record struct CurrencyConvertByIpRequestUpdates : IStringEnum
 {
-    public static readonly CurrencyConvertByIpRequestUpdates OneD = new(Values.OneD);
-
-    public static readonly CurrencyConvertByIpRequestUpdates OneH = new(Values.OneH);
+    public static readonly CurrencyConvertByIpRequestUpdates OneM = new(Values.OneM);
 
     public static readonly CurrencyConvertByIpRequestUpdates TenM = new(Values.TenM);
 
-    public static readonly CurrencyConvertByIpRequestUpdates OneM = new(Values.OneM);
+    public static readonly CurrencyConvertByIpRequestUpdates OneH = new(Values.OneH);
+
+    public static readonly CurrencyConvertByIpRequestUpdates OneD = new(Values.OneD);
 
     public CurrencyConvertByIpRequestUpdates(string value)
     {
@@ -115,12 +115,12 @@ public readonly record struct CurrencyConvertByIpRequestUpdates : IStringEnum
     [Serializable]
     public static class Values
     {
-        public const string OneD = "1d";
-
-        public const string OneH = "1h";
+        public const string OneM = "1m";
 
         public const string TenM = "10m";
 
-        public const string OneM = "1m";
+        public const string OneH = "1h";
+
+        public const string OneD = "1d";
     }
 }

@@ -22,7 +22,7 @@ public record DomainDnsReverseResponseReverseDnsRecordsItem : IJsonOnDeserialize
     public required string DomainName { get; set; }
 
     [JsonPropertyName("domainRegistered")]
-    public required bool DomainRegistered { get; set; }
+    public bool? DomainRegistered { get; set; }
 
     [JsonPropertyName("dnsTypes")]
     public required DomainDnsReverseResponseReverseDnsRecordsItemDnsTypes DnsTypes { get; set; }
@@ -31,8 +31,8 @@ public record DomainDnsReverseResponseReverseDnsRecordsItem : IJsonOnDeserialize
     public IEnumerable<
         OneOf<
             DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemAddress,
-            DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemOne,
             DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemPriority,
+            DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemOne,
             DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemSingleName,
             DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemAdmin,
             DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemStrings
@@ -41,8 +41,8 @@ public record DomainDnsReverseResponseReverseDnsRecordsItem : IJsonOnDeserialize
         new List<
             OneOf<
                 DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemAddress,
-                DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemOne,
                 DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemPriority,
+                DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemOne,
                 DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemSingleName,
                 DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemAdmin,
                 DomainDnsReverseResponseReverseDnsRecordsItemDnsRecordsItemStrings

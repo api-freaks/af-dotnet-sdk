@@ -24,13 +24,13 @@ public record DomainReputationResponseEmailDeliverabilityAuthenticationSpf : IJs
     /// SPF enforcement policy qualifier found in the record (e.g. ~all, -all).
     /// </summary>
     [JsonPropertyName("policy")]
-    public required string Policy { get; set; }
+    public string? Policy { get; set; }
 
     /// <summary>
     /// Raw SPF DNS TXT record string.
     /// </summary>
     [JsonPropertyName("record")]
-    public required string Record { get; set; }
+    public string? Record { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

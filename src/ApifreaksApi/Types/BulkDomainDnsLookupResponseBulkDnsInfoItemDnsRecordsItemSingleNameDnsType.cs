@@ -14,6 +14,9 @@ public readonly record struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecor
     public static readonly BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemSingleNameDnsType Ns =
         new(Values.Ns);
 
+    public static readonly BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemSingleNameDnsType Ptr =
+        new(Values.Ptr);
+
     public BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemSingleNameDnsType(string value)
     {
         Value = value;
@@ -126,5 +129,7 @@ public readonly record struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecor
     public static class Values
     {
         public const string Ns = "NS";
+
+        public const string Ptr = "PTR";
     }
 }

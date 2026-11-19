@@ -10,8 +10,6 @@ public readonly record struct HistoricalWeatherRequestFormat : IStringEnum
 {
     public static readonly HistoricalWeatherRequestFormat Json = new(Values.Json);
 
-    public static readonly HistoricalWeatherRequestFormat Xml = new(Values.Xml);
-
     public HistoricalWeatherRequestFormat(string value)
     {
         Value = value;
@@ -110,7 +108,5 @@ public readonly record struct HistoricalWeatherRequestFormat : IStringEnum
     public static class Values
     {
         public const string Json = "json";
-
-        public const string Xml = "xml";
     }
 }

@@ -20,7 +20,7 @@ public record BulkScreenshotCaptureResponseResultsItemUrl : IJsonOnDeserialized,
     public required string CreatedAt { get; set; }
 
     [JsonPropertyName("format")]
-    public required string Format { get; set; }
+    public string? Format { get; set; }
 
     [JsonPropertyName("ttl")]
     public required string Ttl { get; set; }

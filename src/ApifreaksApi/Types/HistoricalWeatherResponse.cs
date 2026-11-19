@@ -17,9 +17,9 @@ public record HistoricalWeatherResponse : IJsonOnDeserialized
     /// </summary>
     [JsonPropertyName("location")]
     public OneOf<
-        HistoricalWeatherResponseLocationZero,
         HistoricalWeatherResponseLocationContinentCode,
-        HistoricalWeatherResponseLocationCity
+        HistoricalWeatherResponseLocationCity,
+        HistoricalWeatherResponseLocationZero
     >? Location { get; set; }
 
     /// <summary>

@@ -9,7 +9,75 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class VatRateByCountryTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            [
+              {
+                "country": "country",
+                "state": "state",
+                "type": "type",
+                "currency": "currency",
+                "standard_rate": 1.1,
+                "reduced_rate": [
+                  1.1,
+                  1.1
+                ],
+                "super_reduced_rate": [
+                  1.1,
+                  1.1
+                ],
+                "parking_rate": 1.1,
+                "categories": {
+                  "categories": 1.1
+                }
+              },
+              {
+                "country": "country",
+                "state": "state",
+                "type": "type",
+                "currency": "currency",
+                "standard_rate": 1.1,
+                "reduced_rate": [
+                  1.1,
+                  1.1
+                ],
+                "super_reduced_rate": [
+                  1.1,
+                  1.1
+                ],
+                "parking_rate": 1.1,
+                "categories": {
+                  "categories": 1.1
+                }
+              }
+            ]
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/vat/rates/country")
+                    .WithParam("apiKey", "apiKey")
+                    .WithParam("country", "country")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.VatRateByCountryAsync(
+            new VatRateByCountryRequest { ApiKey = "apiKey", Country = "country" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             [

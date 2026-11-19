@@ -80,6 +80,18 @@ public record DomainReputationResponse : IJsonOnDeserialized
     [JsonPropertyName("errors")]
     public IEnumerable<string> Errors { get; set; } = new List<string>();
 
+    /// <summary>
+    /// Backlink profile of the domain.
+    /// </summary>
+    [JsonPropertyName("backlinks")]
+    public DomainReputationResponseBacklinks? Backlinks { get; set; }
+
+    /// <summary>
+    /// Current registration status of the domain.
+    /// </summary>
+    [JsonPropertyName("registration")]
+    public DomainReputationResponseRegistration? Registration { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

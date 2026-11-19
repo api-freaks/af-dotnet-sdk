@@ -9,7 +9,39 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class DomainAvailabilitySuggestionsTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "domain": "domain",
+              "domainAvailability": true
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/domain/availability/suggestions")
+                    .WithParam("apiKey", "apiKey")
+                    .WithParam("domain", "domain")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.DomainAvailabilitySuggestionsAsync(
+            new DomainAvailabilitySuggestionsRequest { ApiKey = "apiKey", Domain = "domain" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {

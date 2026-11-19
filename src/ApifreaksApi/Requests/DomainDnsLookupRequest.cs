@@ -19,19 +19,19 @@ public record DomainDnsLookupRequest
     public DomainDnsLookupRequestFormat? Format { get; set; }
 
     /// <summary>
-    /// Hostname or URL whose DNS records are required.
+    /// Hostname or URL whose DNS records are required. Give either `host-name` or `ipAddress`.
     /// </summary>
     [JsonIgnore]
     public string? HostName { get; set; }
 
     /// <summary>
-    /// The IP address for requested DNS's PTR record. 'type' parameter must be set to 'all'.
+    /// The IP address whose PTR (reverse DNS) record is required. Give either `host-name` or `ipAddress`; with `ipAddress`, set `type` to `all` or `PTR`.
     /// </summary>
     [JsonIgnore]
     public string? IpAddress { get; set; }
 
     /// <summary>
-    /// A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be "all".
+    /// DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, PTR, or all. When ipAddress is provided, use "all" or "PTR".
     /// </summary>
     [JsonIgnore]
     public IEnumerable<string> Type { get; set; } = new List<string>();

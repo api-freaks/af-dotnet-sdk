@@ -41,11 +41,17 @@ public record DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData :
     [JsonPropertyName("domain_status")]
     public IEnumerable<string>? DomainStatus { get; set; }
 
+    /// <summary>
+    /// Deprecated: the API returns this field as `whois_raw_registery`; read `whois_raw_registery` instead.
+    /// </summary>
     [JsonPropertyName("whois_raw_registry")]
     public string? WhoisRawRegistry { get; set; }
 
     [JsonPropertyName("domain_registrar")]
     public DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDomainRegistrar? DomainRegistrar { get; set; }
+
+    [JsonPropertyName("whois_raw_registery")]
+    public string? WhoisRawRegistery { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

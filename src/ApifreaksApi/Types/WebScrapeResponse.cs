@@ -4,6 +4,9 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// The API returns an empty object `{}` when no extract instruction matched anything.
+/// </summary>
 [Serializable]
 public record WebScrapeResponse : IJsonOnDeserialized
 {
@@ -12,11 +15,10 @@ public record WebScrapeResponse : IJsonOnDeserialized
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Extracted data based on the extract instructions
+    /// Extracted data based on the extract instructions. Absent when nothing was extracted.
     /// </summary>
     [JsonPropertyName("extractedData")]
-    public Dictionary<string, object?> ExtractedData { get; set; } =
-        new Dictionary<string, object?>();
+    public Dictionary<string, object?>? ExtractedData { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

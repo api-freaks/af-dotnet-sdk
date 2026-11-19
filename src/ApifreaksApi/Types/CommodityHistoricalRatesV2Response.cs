@@ -30,6 +30,15 @@ public record CommodityHistoricalRatesV2Response : IJsonOnDeserialized
     public Dictionary<string, CommodityHistoricalRatesV2ResponseRatesValue> Rates { get; set; } =
         new Dictionary<string, CommodityHistoricalRatesV2ResponseRatesValue>();
 
+    /// <summary>
+    /// Present only on a 206 Partial Content response, when some requested symbols could not be resolved. Map of each unresolved symbol to a detail message and optional close-match suggestions.
+    /// </summary>
+    [JsonPropertyName("unresolved")]
+    public Dictionary<
+        string,
+        CommodityHistoricalRatesV2ResponseUnresolvedValue
+    >? Unresolved { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

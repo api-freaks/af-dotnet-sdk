@@ -19,10 +19,10 @@ public record GetSubregionsRequest
     public GetSubregionsRequestFormat? Format { get; set; }
 
     /// <summary>
-    /// Name of the region.
+    /// Name of the region. If omitted, all subregions are returned.
     /// </summary>
     [JsonIgnore]
-    public required string Region { get; set; }
+    public string? Region { get; set; }
 
     /// <inheritdoc />
     public override string ToString()

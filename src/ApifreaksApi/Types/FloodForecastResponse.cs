@@ -17,9 +17,9 @@ public record FloodForecastResponse : IJsonOnDeserialized
     /// </summary>
     [JsonPropertyName("location")]
     public OneOf<
-        FloodForecastResponseLocationZero,
         FloodForecastResponseLocationContinentCode,
-        FloodForecastResponseLocationCity
+        FloodForecastResponseLocationCity,
+        FloodForecastResponseLocationZero
     >? Location { get; set; }
 
     /// <summary>

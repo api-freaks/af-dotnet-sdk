@@ -74,6 +74,24 @@ public record IbanValidateResponseBankData : IJsonOnDeserialized
     [JsonPropertyName("sepa")]
     public required bool Sepa { get; set; }
 
+    /// <summary>
+    /// Name of the branch or office. Null when not resolvable.
+    /// </summary>
+    [JsonPropertyName("branch_name")]
+    public string? BranchName { get; set; }
+
+    /// <summary>
+    /// Type of institution: "FIIN" (financial institution) or "NFIN" (non-financial institution). Null when not resolvable.
+    /// </summary>
+    [JsonPropertyName("instit_type")]
+    public string? InstitType { get; set; }
+
+    /// <summary>
+    /// Postal/ZIP code of the bank branch. Null when not resolvable.
+    /// </summary>
+    [JsonPropertyName("postal_code")]
+    public string? PostalCode { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

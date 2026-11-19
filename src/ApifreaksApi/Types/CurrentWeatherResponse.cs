@@ -17,9 +17,9 @@ public record CurrentWeatherResponse : IJsonOnDeserialized
     /// </summary>
     [JsonPropertyName("location")]
     public required OneOf<
-        CurrentWeatherResponseLocationZero,
         CurrentWeatherResponseLocationContinentCode,
-        CurrentWeatherResponseLocationCity
+        CurrentWeatherResponseLocationCity,
+        CurrentWeatherResponseLocationZero
     > Location { get; set; }
 
     /// <summary>

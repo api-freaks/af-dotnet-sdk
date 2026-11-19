@@ -41,10 +41,10 @@ public record WebScrapeRequest
     public bool? JsEnabled { get; set; }
 
     /// <summary>
-    /// Use proxy for requests
+    /// Use a proxy for the request. Pass true/false to toggle the default proxy pool, or a proxy URL string to use a specific proxy.
     /// </summary>
     [JsonIgnore]
-    public OneOf<bool, string, Dictionary<string, object?>>? Proxy { get; set; }
+    public OneOf<bool, string>? Proxy { get; set; }
 
     /// <summary>
     /// Ignore SSL certificate errors.

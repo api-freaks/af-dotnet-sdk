@@ -16,6 +16,10 @@ public readonly record struct DomainReputationResponseRiskCategoryVerdict : IStr
         Values.Suspicious
     );
 
+    public static readonly DomainReputationResponseRiskCategoryVerdict Unknown = new(
+        Values.Unknown
+    );
+
     public DomainReputationResponseRiskCategoryVerdict(string value)
     {
         Value = value;
@@ -122,5 +126,7 @@ public readonly record struct DomainReputationResponseRiskCategoryVerdict : IStr
         public const string Safe = "safe";
 
         public const string Suspicious = "suspicious";
+
+        public const string Unknown = "unknown";
     }
 }

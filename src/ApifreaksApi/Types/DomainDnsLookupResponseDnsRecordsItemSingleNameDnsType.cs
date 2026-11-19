@@ -14,6 +14,10 @@ public readonly record struct DomainDnsLookupResponseDnsRecordsItemSingleNameDns
         Values.Ns
     );
 
+    public static readonly DomainDnsLookupResponseDnsRecordsItemSingleNameDnsType Ptr = new(
+        Values.Ptr
+    );
+
     public DomainDnsLookupResponseDnsRecordsItemSingleNameDnsType(string value)
     {
         Value = value;
@@ -120,5 +124,7 @@ public readonly record struct DomainDnsLookupResponseDnsRecordsItemSingleNameDns
     public static class Values
     {
         public const string Ns = "NS";
+
+        public const string Ptr = "PTR";
     }
 }

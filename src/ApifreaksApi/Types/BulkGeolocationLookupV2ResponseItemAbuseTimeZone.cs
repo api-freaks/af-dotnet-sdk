@@ -42,7 +42,7 @@ public record BulkGeolocationLookupV2ResponseItemAbuseTimeZone : IJsonOnDeserial
     /// Local time as Unix epoch seconds.
     /// </summary>
     [JsonPropertyName("current_time_unix")]
-    public required float CurrentTimeUnix { get; set; }
+    public required double CurrentTimeUnix { get; set; }
 
     /// <summary>
     /// Current time zone abbreviation.
