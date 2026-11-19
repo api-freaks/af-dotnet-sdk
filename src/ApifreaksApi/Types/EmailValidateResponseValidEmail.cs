@@ -10,7 +10,19 @@ public readonly record struct EmailValidateResponseValidEmail : IStringEnum
 {
     public static readonly EmailValidateResponseValidEmail Valid = new(Values.Valid);
 
+    public static readonly EmailValidateResponseValidEmail AcceptAll = new(Values.AcceptAll);
+
     public static readonly EmailValidateResponseValidEmail Invalid = new(Values.Invalid);
+
+    public static readonly EmailValidateResponseValidEmail InvalidEmail = new(Values.InvalidEmail);
+
+    public static readonly EmailValidateResponseValidEmail Unknown = new(Values.Unknown);
+
+    public static readonly EmailValidateResponseValidEmail Risky = new(Values.Risky);
+
+    public static readonly EmailValidateResponseValidEmail AppServerBlocked = new(
+        Values.AppServerBlocked
+    );
 
     public EmailValidateResponseValidEmail(string value)
     {
@@ -111,6 +123,16 @@ public readonly record struct EmailValidateResponseValidEmail : IStringEnum
     {
         public const string Valid = "valid";
 
+        public const string AcceptAll = "accept_all";
+
         public const string Invalid = "invalid";
+
+        public const string InvalidEmail = "INVALID_EMAIL";
+
+        public const string Unknown = "unknown";
+
+        public const string Risky = "risky";
+
+        public const string AppServerBlocked = "app_server_blocked";
     }
 }

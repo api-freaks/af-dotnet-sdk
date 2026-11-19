@@ -18,6 +18,30 @@ public readonly record struct CommoditySymbolsResponseSymbolsItemUpdateInterval 
         Values.PerMinute
     );
 
+    public static readonly CommoditySymbolsResponseSymbolsItemUpdateInterval Per10Minutes = new(
+        Values.Per10Minutes
+    );
+
+    public static readonly CommoditySymbolsResponseSymbolsItemUpdateInterval PerHour = new(
+        Values.PerHour
+    );
+
+    public static readonly CommoditySymbolsResponseSymbolsItemUpdateInterval PerDay = new(
+        Values.PerDay
+    );
+
+    public static readonly CommoditySymbolsResponseSymbolsItemUpdateInterval PerWeek = new(
+        Values.PerWeek
+    );
+
+    public static readonly CommoditySymbolsResponseSymbolsItemUpdateInterval PerMonth = new(
+        Values.PerMonth
+    );
+
+    public static readonly CommoditySymbolsResponseSymbolsItemUpdateInterval Per6Months = new(
+        Values.Per6Months
+    );
+
     public CommoditySymbolsResponseSymbolsItemUpdateInterval(string value)
     {
         Value = value;
@@ -126,5 +150,17 @@ public readonly record struct CommoditySymbolsResponseSymbolsItemUpdateInterval 
         public const string PerSecond = "PER_SECOND";
 
         public const string PerMinute = "PER_MINUTE";
+
+        public const string Per10Minutes = "PER_10_MINUTES";
+
+        public const string PerHour = "PER_HOUR";
+
+        public const string PerDay = "PER_DAY";
+
+        public const string PerWeek = "PER_WEEK";
+
+        public const string PerMonth = "PER_MONTH";
+
+        public const string Per6Months = "PER_6_MONTHS";
     }
 }

@@ -32,6 +32,18 @@ public record BulkGeolocationLookupV2ResponseItemAbuseNetwork : IJsonOnDeseriali
     [JsonPropertyName("is_anycast")]
     public bool? IsAnycast { get; set; }
 
+    /// <summary>
+    /// CDN provider name (e.g. Cloudflare) when is_cdn is true; empty otherwise.
+    /// </summary>
+    [JsonPropertyName("cdn_provider_name")]
+    public string? CdnProviderName { get; set; }
+
+    /// <summary>
+    /// true if the IP belongs to a content delivery network (CDN) or a cloud provider's network.
+    /// </summary>
+    [JsonPropertyName("is_cdn")]
+    public bool? IsCdn { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

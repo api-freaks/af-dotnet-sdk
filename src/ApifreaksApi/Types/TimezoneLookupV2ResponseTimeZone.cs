@@ -42,7 +42,7 @@ public record TimezoneLookupV2ResponseTimeZone : IJsonOnDeserialized
     /// The Unix timestamp representing the date and time in seconds.
     /// </summary>
     [JsonPropertyName("current_time_unix")]
-    public required float CurrentTimeUnix { get; set; }
+    public required double CurrentTimeUnix { get; set; }
 
     /// <summary>
     /// The current date in YYYY-MM-DD format.

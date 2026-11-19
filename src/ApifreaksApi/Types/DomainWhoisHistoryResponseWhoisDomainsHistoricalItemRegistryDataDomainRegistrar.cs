@@ -30,6 +30,12 @@ public record DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDo
     [JsonPropertyName("phone_number")]
     public string? PhoneNumber { get; set; }
 
+    /// <summary>
+    /// Registrar handle as published in the snapshot, when present (for example `292`, usually the same as `iana_id`).
+    /// </summary>
+    [JsonPropertyName("handle")]
+    public string? Handle { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

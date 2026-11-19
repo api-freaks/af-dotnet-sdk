@@ -35,6 +35,9 @@ public record DomainDnsLookupResponseDnsTypes : IJsonOnDeserialized
     [JsonPropertyName("SPF")]
     public double? Spf { get; set; }
 
+    [JsonPropertyName("PTR")]
+    public double? Ptr { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

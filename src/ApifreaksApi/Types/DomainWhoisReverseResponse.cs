@@ -12,20 +12,29 @@ public record DomainWhoisReverseResponse : IJsonOnDeserialized
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    [JsonPropertyName("totalResult")]
+    /// <summary>
+    /// Total results found across the query.
+    /// </summary>
+    [JsonPropertyName("total_Result")]
     public int? TotalResult { get; set; }
 
-    [JsonPropertyName("totalPages")]
+    /// <summary>
+    /// Total number of pages (50 records per page in default mode, 100 in mini mode).
+    /// </summary>
+    [JsonPropertyName("total_Pages")]
     public int? TotalPages { get; set; }
 
-    [JsonPropertyName("currentPage")]
+    /// <summary>
+    /// Current page number.
+    /// </summary>
+    [JsonPropertyName("current_Page")]
     public int? CurrentPage { get; set; }
 
     [JsonPropertyName("whois_domains_historical")]
     public IEnumerable<
         OneOf<
             DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact,
-            DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname
+            DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyName
         >
     >? WhoisDomainsHistorical { get; set; }
 

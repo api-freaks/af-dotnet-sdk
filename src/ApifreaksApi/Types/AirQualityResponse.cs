@@ -17,9 +17,9 @@ public record AirQualityResponse : IJsonOnDeserialized
     /// </summary>
     [JsonPropertyName("location")]
     public OneOf<
-        AirQualityResponseLocationZero,
         AirQualityResponseLocationContinentCode,
-        AirQualityResponseLocationCity
+        AirQualityResponseLocationCity,
+        AirQualityResponseLocationZero
     >? Location { get; set; }
 
     /// <summary>

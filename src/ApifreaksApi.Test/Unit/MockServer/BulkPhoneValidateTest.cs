@@ -15,6 +15,128 @@ public class BulkPhoneValidateTest : BaseMockServerTest
             {
               "numbers": [
                 {
+                  "number": "number"
+                },
+                {
+                  "number": "number"
+                }
+              ]
+            }
+            """;
+
+        const string mockResponse = """
+            [
+              {
+                "raw_input": {
+                  "number": "number",
+                  "region": "region",
+                  "dialer_region": "dialer_region"
+                },
+                "possible": true,
+                "valid": true,
+                "country_prefix": 1,
+                "national_number": 1000000,
+                "country_code": "country_code",
+                "carrier": "carrier",
+                "location": "location",
+                "time_zones": [
+                  "time_zones",
+                  "time_zones"
+                ],
+                "line_type": "MOBILE",
+                "formats": {
+                  "E164": "E164",
+                  "International": "International",
+                  "National": "National",
+                  "RFC3966": "RFC3966"
+                },
+                "area_code_length": 1,
+                "ndc_length": 1,
+                "can_be_internationally_dialled": true,
+                "error": "error",
+                "message": "message"
+              },
+              {
+                "raw_input": {
+                  "number": "number",
+                  "region": "region",
+                  "dialer_region": "dialer_region"
+                },
+                "possible": true,
+                "valid": true,
+                "country_prefix": 1,
+                "national_number": 1000000,
+                "country_code": "country_code",
+                "carrier": "carrier",
+                "location": "location",
+                "time_zones": [
+                  "time_zones",
+                  "time_zones"
+                ],
+                "line_type": "MOBILE",
+                "formats": {
+                  "E164": "E164",
+                  "International": "International",
+                  "National": "National",
+                  "RFC3966": "RFC3966"
+                },
+                "area_code_length": 1,
+                "ndc_length": 1,
+                "can_be_internationally_dialled": true,
+                "error": "error",
+                "message": "message"
+              }
+            ]
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/phone/validation/bulk")
+                    .WithParam("apiKey", "apiKey")
+                    .WithHeader("Content-Type", "application/json")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.BulkPhoneValidateAsync(
+            new BulkPhoneValidateRequest
+            {
+                ApiKey = "apiKey",
+                Numbers = new List<BulkPhoneValidateRequestNumbersItem>()
+                {
+                    new BulkPhoneValidateRequestNumbersItem
+                    {
+                        Number = "number",
+                        Region = null,
+                        DialerRegion = null,
+                    },
+                    new BulkPhoneValidateRequestNumbersItem
+                    {
+                        Number = "number",
+                        Region = null,
+                        DialerRegion = null,
+                    },
+                },
+            }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
+    {
+        const string requestJson = """
+            {
+              "numbers": [
+                {
                   "number": "+14155552671"
                 },
                 {
@@ -54,7 +176,9 @@ public class BulkPhoneValidateTest : BaseMockServerTest
                 },
                 "area_code_length": 3,
                 "ndc_length": 3,
-                "can_be_internationally_dialled": true
+                "can_be_internationally_dialled": true,
+                "error": "error",
+                "message": "message"
               }
             ]
             """;
@@ -92,7 +216,7 @@ public class BulkPhoneValidateTest : BaseMockServerTest
     }
 
     [NUnit.Framework.Test]
-    public async Task MockServerTest_2()
+    public async Task MockServerTest_3()
     {
         const string requestJson = """
             {
@@ -140,7 +264,9 @@ public class BulkPhoneValidateTest : BaseMockServerTest
                 },
                 "area_code_length": 3,
                 "ndc_length": 3,
-                "can_be_internationally_dialled": true
+                "can_be_internationally_dialled": true,
+                "error": "error",
+                "message": "message"
               }
             ]
             """;
@@ -182,7 +308,7 @@ public class BulkPhoneValidateTest : BaseMockServerTest
     }
 
     [NUnit.Framework.Test]
-    public async Task MockServerTest_3()
+    public async Task MockServerTest_4()
     {
         const string requestJson = """
             {
@@ -229,7 +355,9 @@ public class BulkPhoneValidateTest : BaseMockServerTest
                 },
                 "area_code_length": 3,
                 "ndc_length": 3,
-                "can_be_internationally_dialled": true
+                "can_be_internationally_dialled": true,
+                "error": "error",
+                "message": "message"
               }
             ]
             """;

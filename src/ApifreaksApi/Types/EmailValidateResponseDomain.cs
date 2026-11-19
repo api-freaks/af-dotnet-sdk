@@ -24,7 +24,7 @@ public record EmailValidateResponseDomain : IJsonOnDeserialized
     public required bool Free { get; set; }
 
     [JsonPropertyName("catchAll")]
-    public required bool CatchAll { get; set; }
+    public bool? CatchAll { get; set; }
 
     [JsonPropertyName("validDomain")]
     public required bool ValidDomain { get; set; }

@@ -9,7 +9,68 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class ZipcodeDistanceTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string requestJson = """
+            {
+              "compare": [
+                "compare",
+                "compare"
+              ],
+              "country": "country"
+            }
+            """;
+
+        const string mockResponse = """
+            {
+              "result_count": 1,
+              "results": [
+                {
+                  "code": "code",
+                  "distance": 1.1
+                },
+                {
+                  "code": "code",
+                  "distance": 1.1
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/zipcode/distance")
+                    .WithParam("apiKey", "apiKey")
+                    .WithHeader("Content-Type", "application/json")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.ZipcodeDistanceAsync(
+            new ZipcodeDistanceRequest
+            {
+                ApiKey = "apiKey",
+                Compare = new List<string>() { "compare", "compare" },
+                Code = null,
+                Lat = null,
+                Long = null,
+                Country = "country",
+                Unit = null,
+            }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string requestJson = """
             {

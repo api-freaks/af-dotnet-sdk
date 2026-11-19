@@ -4,6 +4,9 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// A selector/value pair used by fill, select, and clickButtonByValue instructions.
+/// </summary>
 [Serializable]
 public record WebScrapeRequestBodyBlockUrlInstructionsItemFill : IJsonOnDeserialized
 {
@@ -11,8 +14,17 @@ public record WebScrapeRequestBodyBlockUrlInstructionsItemFill : IJsonOnDeserial
     private readonly IDictionary<string, JsonElement> _extensionData =
         new Dictionary<string, JsonElement>();
 
-    [JsonPropertyName("fill")]
-    public WebScrapeRequestBodyBlockUrlInstructionsItemFillFill? Fill { get; set; }
+    /// <summary>
+    /// CSS or XPath selector identifying the target element.
+    /// </summary>
+    [JsonPropertyName("place")]
+    public required string Place { get; set; }
+
+    /// <summary>
+    /// Value to fill, select, or match against.
+    /// </summary>
+    [JsonPropertyName("value")]
+    public required string Value { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

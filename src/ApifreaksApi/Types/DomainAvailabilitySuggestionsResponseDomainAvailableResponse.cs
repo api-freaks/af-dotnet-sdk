@@ -15,7 +15,8 @@ public record DomainAvailabilitySuggestionsResponseDomainAvailableResponse : IJs
         new Dictionary<string, JsonElement>();
 
     [JsonPropertyName("domain_available_response")]
-    public IEnumerable<DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem>? DomainAvailableResponse { get; set; }
+    public IEnumerable<DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem> DomainAvailableResponse { get; set; } =
+        new List<DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem>();
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

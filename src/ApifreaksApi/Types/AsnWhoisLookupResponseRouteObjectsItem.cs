@@ -23,8 +23,11 @@ public record AsnWhoisLookupResponseRouteObjectsItem : IJsonOnDeserialized
     [JsonPropertyName("isp")]
     public required string Isp { get; set; }
 
+    /// <summary>
+    /// Number of IP addresses in the route. IPv6 routes exceed the 64-bit integer range, so this is a floating-point number.
+    /// </summary>
     [JsonPropertyName("numberOfIps")]
-    public required int NumberOfIps { get; set; }
+    public required double NumberOfIps { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

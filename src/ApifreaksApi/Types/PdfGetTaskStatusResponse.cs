@@ -27,10 +27,10 @@ public record PdfGetTaskStatusResponse : IJsonOnDeserialized
     /// The timestamp when the task status was created, formatted as 'yyyy-MM-dd HH:mm:ss'.
     /// </summary>
     [JsonPropertyName("createdAt")]
-    public required DateTime CreatedAt { get; set; }
+    public required string CreatedAt { get; set; }
 
     /// <summary>
-    /// The URL to download all output files as a single ZIP archive. This is present only when the task status is 'COMPLETED'.
+    /// Deprecated: the API returns this field as `zipFileUrl`; read `zipFileUrl` instead.
     /// </summary>
     [JsonPropertyName("zipOutputUrl")]
     public string? ZipOutputUrl { get; set; }
@@ -75,7 +75,13 @@ public record PdfGetTaskStatusResponse : IJsonOnDeserialized
     /// The timestamp when the task status will expire and be removed from the system, formatted as 'yyyy-MM-dd HH:mm:ss'.
     /// </summary>
     [JsonPropertyName("expiresAt")]
-    public DateTime? ExpiresAt { get; set; }
+    public string? ExpiresAt { get; set; }
+
+    /// <summary>
+    /// URL to download all output files as a ZIP archive; present only on completed tasks.
+    /// </summary>
+    [JsonPropertyName("zipFileUrl")]
+    public string? ZipFileUrl { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

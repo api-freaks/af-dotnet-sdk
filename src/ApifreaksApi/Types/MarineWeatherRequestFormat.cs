@@ -10,8 +10,6 @@ public readonly record struct MarineWeatherRequestFormat : IStringEnum
 {
     public static readonly MarineWeatherRequestFormat Json = new(Values.Json);
 
-    public static readonly MarineWeatherRequestFormat Xml = new(Values.Xml);
-
     public MarineWeatherRequestFormat(string value)
     {
         Value = value;
@@ -109,7 +107,5 @@ public readonly record struct MarineWeatherRequestFormat : IStringEnum
     public static class Values
     {
         public const string Json = "json";
-
-        public const string Xml = "xml";
     }
 }

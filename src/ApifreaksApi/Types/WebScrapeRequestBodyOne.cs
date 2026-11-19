@@ -1,7 +1,6 @@
 using ApifreaksApi.Core;
 using global::System.Text.Json;
 using global::System.Text.Json.Serialization;
-using OneOf;
 
 namespace ApifreaksApi;
 
@@ -13,25 +12,11 @@ public record WebScrapeRequestBodyOne : IJsonOnDeserialized
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// A list of sequential instructions to execute after receiving the static HTML response. Supported methods include `postForm`, `getForm`, and `extract`.
+    /// A list of sequential instructions to execute against the static HTML response. Each item is one StaticInstruction object, with exactly one action field set.
     /// </summary>
     [JsonPropertyName("instructions")]
-    public IEnumerable<
-        OneOf<
-            WebScrapeRequestBodyOneInstructionsItemPostForm,
-            WebScrapeRequestBodyOneInstructionsItemGetForm,
-            WebScrapeRequestBodyOneInstructionsItemExtract,
-            WebScrapeRequestBodyOneInstructionsItemGetPage
-        >
-    > Instructions { get; set; } =
-        new List<
-            OneOf<
-                WebScrapeRequestBodyOneInstructionsItemPostForm,
-                WebScrapeRequestBodyOneInstructionsItemGetForm,
-                WebScrapeRequestBodyOneInstructionsItemExtract,
-                WebScrapeRequestBodyOneInstructionsItemGetPage
-            >
-        >();
+    public IEnumerable<WebScrapeRequestBodyOneInstructionsItem> Instructions { get; set; } =
+        new List<WebScrapeRequestBodyOneInstructionsItem>();
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

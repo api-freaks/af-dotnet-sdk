@@ -25,16 +25,22 @@ public record ZipcodeSearchByRegionRequest
     public required string Country { get; set; }
 
     /// <summary>
-    /// Name of the region, state or province associated with the country.
+    /// Name of the region, state or province associated with the country. Either region or region_code is required; region_code takes priority if both are given.
     /// </summary>
     [JsonIgnore]
-    public required string Region { get; set; }
+    public string? Region { get; set; }
 
     /// <summary>
     /// Page no. to retrieve paginated results.
     /// </summary>
     [JsonIgnore]
     public int? Page { get; set; }
+
+    /// <summary>
+    /// ISO code of the region, state, or province associated with the country. Either region or region_code is required. region_code takes priority if both are given.
+    /// </summary>
+    [JsonIgnore]
+    public string? RegionCode { get; set; }
 
     /// <inheritdoc />
     public override string ToString()

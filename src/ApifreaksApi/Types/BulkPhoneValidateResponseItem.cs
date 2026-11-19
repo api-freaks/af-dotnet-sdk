@@ -95,6 +95,18 @@ public record BulkPhoneValidateResponseItem : IJsonOnDeserialized
     [JsonPropertyName("can_be_internationally_dialled")]
     public bool? CanBeInternationallyDialled { get; set; }
 
+    /// <summary>
+    /// Short error category. Present only when this item failed validation (e.g. malformed number, conflicting region parameters).
+    /// </summary>
+    [JsonPropertyName("error")]
+    public string? Error { get; set; }
+
+    /// <summary>
+    /// Human-readable reason for failure. Present only when this item failed validation.
+    /// </summary>
+    [JsonPropertyName("message")]
+    public string? Message { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

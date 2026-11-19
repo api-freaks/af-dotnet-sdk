@@ -4,6 +4,9 @@ using global::System.Text.Json.Serialization;
 
 namespace ApifreaksApi;
 
+/// <summary>
+/// Form selector and field values to submit via postForm or getForm.
+/// </summary>
 [Serializable]
 public record WebScrapeRequestBodyOneInstructionsItemPostForm : IJsonOnDeserialized
 {
@@ -12,10 +15,16 @@ public record WebScrapeRequestBodyOneInstructionsItemPostForm : IJsonOnDeseriali
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Submits a form using POST method. Provide the form's XPath/CSS selector and input values.
+    /// CSS or XPath selector identifying the form element.
     /// </summary>
-    [JsonPropertyName("postForm")]
-    public WebScrapeRequestBodyOneInstructionsItemPostFormPostForm? PostForm { get; set; }
+    [JsonPropertyName("selector")]
+    public string? Selector { get; set; }
+
+    /// <summary>
+    /// Form field name/value pairs to submit.
+    /// </summary>
+    [JsonPropertyName("data")]
+    public Dictionary<string, string>? Data { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

@@ -52,8 +52,8 @@ public record BulkDomainDnsLookupResponseBulkDnsInfoItem : IJsonOnDeserialized
     public IEnumerable<
         OneOf<
             BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemAddress,
-            BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemOne,
             BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemPriority,
+            BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemOne,
             BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemSingleName,
             BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemAdmin,
             BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemStrings
@@ -62,8 +62,8 @@ public record BulkDomainDnsLookupResponseBulkDnsInfoItem : IJsonOnDeserialized
         new List<
             OneOf<
                 BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemAddress,
-                BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemOne,
                 BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemPriority,
+                BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemOne,
                 BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemSingleName,
                 BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemAdmin,
                 BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemStrings

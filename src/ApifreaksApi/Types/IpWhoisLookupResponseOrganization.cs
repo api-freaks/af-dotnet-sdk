@@ -80,6 +80,48 @@ public record IpWhoisLookupResponseOrganization : IJsonOnDeserialized
     [JsonPropertyName("remarks")]
     public IEnumerable<string>? Remarks { get; set; }
 
+    /// <summary>
+    /// Notify email addresses for this organization object.
+    /// </summary>
+    [JsonPropertyName("notify")]
+    public IEnumerable<string>? Notify { get; set; }
+
+    /// <summary>
+    /// Reference notification email addresses for this organization object.
+    /// </summary>
+    [JsonPropertyName("ref_nfy")]
+    public IEnumerable<string>? RefNfy { get; set; }
+
+    /// <summary>
+    /// Maintainer handles for this organization object.
+    /// </summary>
+    [JsonPropertyName("mnt_by")]
+    public IEnumerable<string>? MntBy { get; set; }
+
+    /// <summary>
+    /// Referenced maintainer handles for this organization object.
+    /// </summary>
+    [JsonPropertyName("mnt_ref")]
+    public IEnumerable<string>? MntRef { get; set; }
+
+    /// <summary>
+    /// Registration date of this organization object (YYYY-MM-DD).
+    /// </summary>
+    [JsonPropertyName("date_created")]
+    public DateOnly? DateCreated { get; set; }
+
+    /// <summary>
+    /// Last update date of this organization object (YYYY-MM-DD).
+    /// </summary>
+    [JsonPropertyName("date_updated")]
+    public DateOnly? DateUpdated { get; set; }
+
+    /// <summary>
+    /// WHOIS data source (RIR registry URL) for this object.
+    /// </summary>
+    [JsonPropertyName("source")]
+    public string? Source { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

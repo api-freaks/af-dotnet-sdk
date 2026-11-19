@@ -9,7 +9,45 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class ZipcodeSearchByRegionTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string mockResponse = """
+            {
+              "total_results": 1,
+              "total_pages": 1,
+              "current_page": 1,
+              "current_page_size": 1,
+              "codes": [
+                "codes",
+                "codes"
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/zipcode/search/region")
+                    .WithParam("apiKey", "apiKey")
+                    .WithParam("country", "country")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.ZipcodeSearchByRegionAsync(
+            new ZipcodeSearchByRegionRequest { ApiKey = "apiKey", Country = "country" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string mockResponse = """
             {
@@ -32,7 +70,6 @@ public class ZipcodeSearchByRegionTest : BaseMockServerTest
                     .WithPath("/v1.0/zipcode/search/region")
                     .WithParam("apiKey", "apiKey")
                     .WithParam("country", "country")
-                    .WithParam("region", "region")
                     .UsingGet()
             )
             .RespondWith(
@@ -43,12 +80,7 @@ public class ZipcodeSearchByRegionTest : BaseMockServerTest
             );
 
         var response = await Client.ZipcodeSearchByRegionAsync(
-            new ZipcodeSearchByRegionRequest
-            {
-                ApiKey = "apiKey",
-                Country = "country",
-                Region = "region",
-            }
+            new ZipcodeSearchByRegionRequest { ApiKey = "apiKey", Country = "country" }
         );
         JsonAssert.AreEqual(response, mockResponse);
     }

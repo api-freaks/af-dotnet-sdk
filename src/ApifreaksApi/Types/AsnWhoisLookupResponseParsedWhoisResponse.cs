@@ -32,6 +32,24 @@ public record AsnWhoisLookupResponseParsedWhoisResponse : IJsonOnDeserialized
     public IEnumerable<AsnWhoisLookupResponseParsedWhoisResponseAbuseContactsItem> AbuseContacts { get; set; } =
         new List<AsnWhoisLookupResponseParsedWhoisResponseAbuseContactsItem>();
 
+    /// <summary>
+    /// Timestamp when the WHOIS query was executed, in `YYYY-MM-DD HH:mm:ss` format — not ISO 8601 (no `T` separator, no milliseconds, no `Z`).
+    /// </summary>
+    [JsonPropertyName("query_time")]
+    public string? QueryTime { get; set; }
+
+    /// <summary>
+    /// Raw referral WHOIS (rwhois) text, when the registry delegates to a referral server.
+    /// </summary>
+    [JsonPropertyName("r_whois_raw_response")]
+    public string? RWhoisRawResponse { get; set; }
+
+    /// <summary>
+    /// Unparsed raw WHOIS text, when returned separately from whoisResponse.
+    /// </summary>
+    [JsonPropertyName("whois_raw_response")]
+    public string? WhoisRawResponse { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

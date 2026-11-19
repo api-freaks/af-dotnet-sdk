@@ -32,6 +32,24 @@ public record SwiftCodeLookupResponse : IJsonOnDeserialized
     [JsonPropertyName("country")]
     public required string Country { get; set; }
 
+    /// <summary>
+    /// Name of the branch or office. Null when not resolvable.
+    /// </summary>
+    [JsonPropertyName("branchName")]
+    public string? BranchName { get; set; }
+
+    /// <summary>
+    /// Type of institution: "FIIN" (financial institution) or "NFIN" (non-financial institution).
+    /// </summary>
+    [JsonPropertyName("institType")]
+    public string? InstitType { get; set; }
+
+    /// <summary>
+    /// Postal/ZIP code of the bank branch. Null when not resolvable.
+    /// </summary>
+    [JsonPropertyName("postalCode")]
+    public string? PostalCode { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

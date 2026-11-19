@@ -24,7 +24,7 @@ public record VatRateByIpResponseItem : IJsonOnDeserialized
     public required float StandardRate { get; set; }
 
     [JsonPropertyName("reduced_rate")]
-    public IEnumerable<float> ReducedRate { get; set; } = new List<float>();
+    public IEnumerable<float>? ReducedRate { get; set; }
 
     /// <summary>
     /// Optional super-reduced VAT rates applicable in specific categories.
@@ -36,7 +36,13 @@ public record VatRateByIpResponseItem : IJsonOnDeserialized
     public float? ParkingRate { get; set; }
 
     [JsonPropertyName("categories")]
-    public Dictionary<string, float> Categories { get; set; } = new Dictionary<string, float>();
+    public Dictionary<string, float>? Categories { get; set; }
+
+    /// <summary>
+    /// State or region resolved from the IP address, for countries with sub-national tax rates (e.g. US). Only present when applicable.
+    /// </summary>
+    [JsonPropertyName("state")]
+    public string? State { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

@@ -28,13 +28,13 @@ public record DomainDnsLookupResponse : IJsonOnDeserialized
     /// Queried domain.
     /// </summary>
     [JsonPropertyName("domainName")]
-    public required string DomainName { get; set; }
+    public string? DomainName { get; set; }
 
     /// <summary>
     /// Indicates whether the domain is registered.
     /// </summary>
     [JsonPropertyName("domainRegistered")]
-    public required bool DomainRegistered { get; set; }
+    public bool? DomainRegistered { get; set; }
 
     [JsonPropertyName("dnsTypes")]
     public required DomainDnsLookupResponseDnsTypes DnsTypes { get; set; }
@@ -46,8 +46,8 @@ public record DomainDnsLookupResponse : IJsonOnDeserialized
     public IEnumerable<
         OneOf<
             DomainDnsLookupResponseDnsRecordsItemAddress,
-            DomainDnsLookupResponseDnsRecordsItemOne,
             DomainDnsLookupResponseDnsRecordsItemPriority,
+            DomainDnsLookupResponseDnsRecordsItemOne,
             DomainDnsLookupResponseDnsRecordsItemSingleName,
             DomainDnsLookupResponseDnsRecordsItemAdmin,
             DomainDnsLookupResponseDnsRecordsItemStrings
@@ -56,13 +56,19 @@ public record DomainDnsLookupResponse : IJsonOnDeserialized
         new List<
             OneOf<
                 DomainDnsLookupResponseDnsRecordsItemAddress,
-                DomainDnsLookupResponseDnsRecordsItemOne,
                 DomainDnsLookupResponseDnsRecordsItemPriority,
+                DomainDnsLookupResponseDnsRecordsItemOne,
                 DomainDnsLookupResponseDnsRecordsItemSingleName,
                 DomainDnsLookupResponseDnsRecordsItemAdmin,
                 DomainDnsLookupResponseDnsRecordsItemStrings
             >
         >();
+
+    /// <summary>
+    /// IP address queried (present when ipAddress parameter is used instead of host-name).
+    /// </summary>
+    [JsonPropertyName("ipAddress")]
+    public string? IpAddress { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

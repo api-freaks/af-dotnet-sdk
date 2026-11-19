@@ -15,7 +15,7 @@ public record SubdomainsLookupResponseSubdomainsItem : IJsonOnDeserialized
     public required string Subdomain { get; set; }
 
     [JsonPropertyName("first_seen")]
-    public required string FirstSeen { get; set; }
+    public string? FirstSeen { get; set; }
 
     [JsonPropertyName("last_seen")]
     public string? LastSeen { get; set; }

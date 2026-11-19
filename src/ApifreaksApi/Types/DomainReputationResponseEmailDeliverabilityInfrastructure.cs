@@ -30,7 +30,7 @@ public record DomainReputationResponseEmailDeliverabilityInfrastructure : IJsonO
     /// Email hosting provider inferred from the MX records.
     /// </summary>
     [JsonPropertyName("mx_provider")]
-    public required string MxProvider { get; set; }
+    public string? MxProvider { get; set; }
 
     /// <summary>
     /// Indicates whether the domain explicitly declines email via a null MX record.

@@ -183,6 +183,24 @@ public partial interface IApifreaksApiClient
     );
 
     /// <summary>
+    /// Validates email syntax and checks the domain for disposable, free, spam, and role-account signals, plus MX/A DNS records. Send the email (and optionally an ip) as a JSON request body. When an ip is included, the response also carries geolocation and security data for it.
+    /// </summary>
+    WithRawResponseTask<DisposableEmailCheckV2Response> DisposableEmailCheckV2Async(
+        DisposableEmailCheckV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Checks a bulk of email addresses (each with an optional ip) and returns a disposable email check result for each, in the same order as the request. Maximum `100` entries per request.
+    /// </summary>
+    WithRawResponseTask<BulkDisposableEmailCheckV2Response> BulkDisposableEmailCheckV2Async(
+        BulkDisposableEmailCheckV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Validates a single phone number and returns detailed metadata including carrier, line type, geolocation, time zones, and standardized formats.
     /// </summary>
     WithRawResponseTask<PhoneValidateResponse> PhoneValidateAsync(
@@ -381,6 +399,15 @@ public partial interface IApifreaksApiClient
     /// </summary>
     WithRawResponseTask<CommoditySymbolsV2Response> CommoditySymbolsV2Async(
         CommoditySymbolsV2Request request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns the prices of one commodity through a UTC day at the requested interval, keyed by UTC timestamp. Each request costs a flat 50 credits however many points it returns.
+    /// </summary>
+    WithRawResponseTask<CommodityIntradayRatesV2Response> CommodityIntradayRatesV2Async(
+        CommodityIntradayRatesV2Request request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
     );
@@ -593,10 +620,30 @@ public partial interface IApifreaksApiClient
     );
 
     /// <summary>
+    /// Renders the template identified by template_id with the JSON data supplied in the request body (or fetched from data_url). Returns a hosted URL for the generated PDF. Provide either a request body or a data_url; one of the two is required. The keys of the data object are the fields you bound when you designed the template in the APIFreaks PDF Template Builder, so the exact shape is up to you. Pin the version parameter to a specific template version (e.g. version=v2) so later design changes never touch what is already live; omit it to use the latest version.
+    /// </summary>
+    WithRawResponseTask<PdfGenerateFromTemplateResponse> PdfGenerateFromTemplateAsync(
+        PdfGenerateFromTemplateRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Upload a CSV file where each row is one record. The API generates one PDF per row and returns an array of results, each with its own pdf_url. Rows are processed independently, so a failure in one row does not block the rest of the batch. The response gives a row-by-row breakdown of which PDFs succeeded and which failed.
+    /// </summary>
+    WithRawResponseTask<
+        IEnumerable<BulkPdfGenerateFromTemplateResponseItem>
+    > BulkPdfGenerateFromTemplateAsync(
+        BulkPdfGenerateFromTemplateRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Capture full-page screenshots and videos of websites with advanced options like device simulation, custom code injection, cookie banner blocking, and scrollable content recording.
     /// Supports multiple output formats including JSON, image, GIF, MP4, and WebM.
     /// </summary>
-    WithRawResponseTask<global::System.IO.Stream> ScreenshotCaptureAsync(
+    WithRawResponseTask<ScreenshotCaptureResponse> ScreenshotCaptureAsync(
         ScreenshotCaptureRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
@@ -777,7 +824,7 @@ public partial interface IApifreaksApiClient
     /// <summary>
     /// Retrieves VAT details for multiple countries or country-state combinations in a single request. Maximum of `100` entries per request are allowed.
     /// </summary>
-    WithRawResponseTask<BulkVatRateByCountryResponse> BulkVatRateByCountryAsync(
+    WithRawResponseTask<IEnumerable<BulkVatRateByCountryResponseItem>> BulkVatRateByCountryAsync(
         BulkVatRateByCountryRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
@@ -1008,7 +1055,7 @@ public partial interface IApifreaksApiClient
     /// <summary>
     /// Get list of all supported flags with their metadata
     /// </summary>
-    WithRawResponseTask<IEnumerable<GetSupportedFlagsResponseItem>> GetSupportedFlagsAsync(
+    WithRawResponseTask<GetSupportedFlagsResponse> GetSupportedFlagsAsync(
         GetSupportedFlagsRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
@@ -1117,6 +1164,15 @@ public partial interface IApifreaksApiClient
     /// </summary>
     WithRawResponseTask<AstronomyLookupResponse> AstronomyLookupAsync(
         AstronomyLookupRequest request,
+        RequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns subscription, subscription-surcharge, and one-off credit balances for the authenticated organization's account.
+    /// </summary>
+    WithRawResponseTask<GetCreditsUsageResponse> GetCreditsUsageAsync(
+        GetCreditsUsageRequest request,
         RequestOptions? options = null,
         CancellationToken cancellationToken = default
     );

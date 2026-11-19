@@ -42,7 +42,7 @@ public record CommoditySymbolsV2ResponseSymbolsItem : IJsonOnDeserialized
     public required CommoditySymbolsV2ResponseSymbolsItemStatus Status { get; set; }
 
     /// <summary>
-    /// The rate at which this commodity's price is updated.
+    /// The rate at which this commodity's price is updated. New values may be added over time.
     /// </summary>
     [JsonPropertyName("updateInterval")]
     public required CommoditySymbolsV2ResponseSymbolsItemUpdateInterval UpdateInterval { get; set; }
@@ -64,6 +64,30 @@ public record CommoditySymbolsV2ResponseSymbolsItem : IJsonOnDeserialized
 
     [JsonPropertyName("unit")]
     public required CommoditySymbolsV2ResponseSymbolsItemUnit Unit { get; set; }
+
+    /// <summary>
+    /// Optional. Present only for dated futures contracts (for example `WTIOIL-FUT-DEC26`). Contract type, currently always `futures`.
+    /// </summary>
+    [JsonPropertyName("contract")]
+    public string? Contract { get; set; }
+
+    /// <summary>
+    /// Optional. Present only for dated futures contracts. Delivery month of the contract (YYYY-MM), for example `2026-12`.
+    /// </summary>
+    [JsonPropertyName("deliveryMonth")]
+    public string? DeliveryMonth { get; set; }
+
+    /// <summary>
+    /// Optional. Present for most dated futures contracts. Last trading date of the contract (YYYY-MM-DD), for example `2026-11-20`.
+    /// </summary>
+    [JsonPropertyName("expiresAt")]
+    public DateOnly? ExpiresAt { get; set; }
+
+    /// <summary>
+    /// Optional. Present only for dated futures contracts. Symbol of the continuous futures series this contract belongs to (for example `WTIOIL-FUT`).
+    /// </summary>
+    [JsonPropertyName("underlying")]
+    public string? Underlying { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

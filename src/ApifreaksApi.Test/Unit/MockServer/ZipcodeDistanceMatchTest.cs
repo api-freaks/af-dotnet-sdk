@@ -9,7 +9,68 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class ZipcodeDistanceMatchTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
+    {
+        const string requestJson = """
+            {
+              "codes": [
+                "codes",
+                "codes"
+              ],
+              "country": "country"
+            }
+            """;
+
+        const string mockResponse = """
+            {
+              "result_count": 1,
+              "results": [
+                {
+                  "code_1": "code_1",
+                  "code_2": "code_2",
+                  "distance": 1.1
+                },
+                {
+                  "code_1": "code_1",
+                  "code_2": "code_2",
+                  "distance": 1.1
+                }
+              ]
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/zipcode/distance/match")
+                    .WithParam("apiKey", "apiKey")
+                    .WithHeader("Content-Type", "application/json")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.ZipcodeDistanceMatchAsync(
+            new ZipcodeDistanceMatchRequest
+            {
+                ApiKey = "apiKey",
+                Codes = new List<string>() { "codes", "codes" },
+                Country = "country",
+                Distance = null,
+                Unit = null,
+            }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
     {
         const string requestJson = """
             {

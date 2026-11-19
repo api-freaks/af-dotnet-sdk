@@ -30,6 +30,24 @@ public record DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
     [JsonPropertyName("phone_number")]
     public string? PhoneNumber { get; set; }
 
+    /// <summary>
+    /// Normalized (lowercase, stripped) registrar name, when published.
+    /// </summary>
+    [JsonPropertyName("normalized_name")]
+    public string? NormalizedName { get; set; }
+
+    /// <summary>
+    /// RDAP (Registration Data Access Protocol) server URL of the registrar, when published.
+    /// </summary>
+    [JsonPropertyName("rdap_server")]
+    public string? RdapServer { get; set; }
+
+    /// <summary>
+    /// Accreditation status of the registrar (e.g., 'accredited'), when published.
+    /// </summary>
+    [JsonPropertyName("status")]
+    public string? Status { get; set; }
+
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();
 

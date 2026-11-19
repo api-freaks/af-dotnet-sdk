@@ -24,7 +24,7 @@ public record DomainReputationResponseEmailDeliverabilityReputation : IJsonOnDes
     /// Indicates whether the domain was registered recently.
     /// </summary>
     [JsonPropertyName("newly_registered")]
-    public required bool NewlyRegistered { get; set; }
+    public bool? NewlyRegistered { get; set; }
 
     /// <summary>
     /// Age of the domain in days since registration.

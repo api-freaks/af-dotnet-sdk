@@ -15,7 +15,7 @@ public record DomainReputationResponseRiskCategory : IJsonOnDeserialized
         new Dictionary<string, JsonElement>();
 
     /// <summary>
-    /// Final verdict of the risk assessment.
+    /// Final verdict of the risk assessment. `unknown` is returned when there is not enough data (e.g. the domain is not registered).
     /// </summary>
     [JsonPropertyName("verdict")]
     public required DomainReputationResponseRiskCategoryVerdict Verdict { get; set; }

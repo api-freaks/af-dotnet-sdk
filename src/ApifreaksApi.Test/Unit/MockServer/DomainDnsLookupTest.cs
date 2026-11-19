@@ -9,7 +9,7 @@ namespace ApifreaksApi.Test.Unit.MockServer;
 public class DomainDnsLookupTest : BaseMockServerTest
 {
     [NUnit.Framework.Test]
-    public async Task MockServerTest()
+    public async Task MockServerTest_1()
     {
         const string mockResponse = """
             {
@@ -25,7 +25,73 @@ public class DomainDnsLookupTest : BaseMockServerTest
                 "NS": 1.1,
                 "SOA": 1.1,
                 "TXT": 1.1,
-                "SPF": 1.1
+                "SPF": 1.1,
+                "PTR": 1.1
+              },
+              "dnsRecords": [
+                {
+                  "name": "name",
+                  "type": 1,
+                  "dnsType": "A",
+                  "ttl": 1,
+                  "rawText": "rawText",
+                  "rRsetType": 1,
+                  "address": "address"
+                },
+                {
+                  "name": "name",
+                  "type": 1,
+                  "dnsType": "A",
+                  "ttl": 1,
+                  "rawText": "rawText",
+                  "rRsetType": 1,
+                  "address": "address"
+                }
+              ],
+              "ipAddress": "ipAddress"
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/domain/dns/live")
+                    .WithParam("apiKey", "apiKey")
+                    .UsingGet()
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.DomainDnsLookupAsync(
+            new DomainDnsLookupRequest { ApiKey = "apiKey" }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
+    {
+        const string mockResponse = """
+            {
+              "status": true,
+              "queryTime": "queryTime",
+              "domainName": "domainName",
+              "domainRegistered": true,
+              "dnsTypes": {
+                "A": 1.1,
+                "AAAA": 1.1,
+                "CNAME": 1.1,
+                "MX": 1.1,
+                "NS": 1.1,
+                "SOA": 1.1,
+                "TXT": 1.1,
+                "SPF": 1.1,
+                "PTR": 1.1
               },
               "dnsRecords": [
                 {
@@ -37,7 +103,8 @@ public class DomainDnsLookupTest : BaseMockServerTest
                   "rRsetType": 1,
                   "address": "address"
                 }
-              ]
+              ],
+              "ipAddress": "ipAddress"
             }
             """;
 

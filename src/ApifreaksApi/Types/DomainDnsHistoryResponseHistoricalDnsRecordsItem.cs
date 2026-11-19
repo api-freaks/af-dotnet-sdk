@@ -22,7 +22,7 @@ public record DomainDnsHistoryResponseHistoricalDnsRecordsItem : IJsonOnDeserial
     public required string DomainName { get; set; }
 
     [JsonPropertyName("domainRegistered")]
-    public required bool DomainRegistered { get; set; }
+    public bool? DomainRegistered { get; set; }
 
     [JsonPropertyName("dnsTypes")]
     public required DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsTypes DnsTypes { get; set; }
@@ -31,8 +31,8 @@ public record DomainDnsHistoryResponseHistoricalDnsRecordsItem : IJsonOnDeserial
     public IEnumerable<
         OneOf<
             DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemAddress,
-            DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemOne,
             DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemPriority,
+            DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemOne,
             DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemSingleName,
             DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemAdmin,
             DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemStrings
@@ -41,8 +41,8 @@ public record DomainDnsHistoryResponseHistoricalDnsRecordsItem : IJsonOnDeserial
         new List<
             OneOf<
                 DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemAddress,
-                DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemOne,
                 DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemPriority,
+                DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemOne,
                 DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemSingleName,
                 DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemAdmin,
                 DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItemStrings

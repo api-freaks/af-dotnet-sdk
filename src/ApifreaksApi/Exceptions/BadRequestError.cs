@@ -4,4 +4,11 @@ namespace ApifreaksApi;
 /// This exception type will be thrown for any non-2XX API responses.
 /// </summary>
 [Serializable]
-public class BadRequestError(object body) : ApifreaksApiApiException("BadRequestError", 400, body);
+public class BadRequestError(BadRequestErrorBody body, ApifreaksApi.RawResponse? rawResponse = null)
+    : ApifreaksApiApiException("BadRequestError", 400, body, rawResponse: rawResponse)
+{
+    /// <summary>
+    /// The body of the response that triggered the exception.
+    /// </summary>
+    public new BadRequestErrorBody Body => body;
+}

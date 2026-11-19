@@ -1,7 +1,6 @@
 using ApifreaksApi;
 using ApifreaksApi.Test.Utils;
 using NUnit.Framework;
-using OneOf;
 
 namespace ApifreaksApi.Test.Unit.MockServer;
 
@@ -14,63 +13,126 @@ public class WebScrapeTest : BaseMockServerTest
     {
         const string requestJson = """
             {
-              "blockUrl": [
-                "https://example.com/ads.js",
-                "https://tracker.example.com/*"
-              ],
-              "cookies": [
-                {
-                  "name": "sessionid",
-                  "value": "abc123"
-                },
-                {
-                  "name": "user_pref",
-                  "value": "darkmode"
-                }
-              ],
               "instructions": [
+                {},
+                {}
+              ]
+            }
+            """;
+
+        const string mockResponse = """
+            {
+              "extractedData": {
+                "extractedData": {
+                  "key": "value"
+                }
+              }
+            }
+            """;
+
+        Server
+            .Given(
+                WireMock
+                    .RequestBuilders.Request.Create()
+                    .WithPath("/v1.0/scraping")
+                    .WithParam("apiKey", "apiKey")
+                    .WithParam("url", "url")
+                    .WithHeader("Content-Type", "application/json")
+                    .UsingPost()
+                    .WithBodyAsJson(requestJson)
+            )
+            .RespondWith(
+                WireMock
+                    .ResponseBuilders.Response.Create()
+                    .WithStatusCode(200)
+                    .WithBody(mockResponse)
+            );
+
+        var response = await Client.WebScrapeAsync(
+            new WebScrapeRequest
+            {
+                ApiKey = "apiKey",
+                Url = "url",
+                Body = new WebScrapeRequestBodyBlockUrl
                 {
-                  "fill": {
-                    "place": "#username",
-                    "value": "myuser"
-                  }
+                    BlockUrl = null,
+                    Cookies = null,
+                    Instructions = new List<WebScrapeRequestBodyBlockUrlInstructionsItem>()
+                    {
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem
+                        {
+                            Fill = null,
+                            Click = null,
+                            ClickIfExist = null,
+                            Enter = null,
+                            NewTab = null,
+                            MoveToRelativeTab = null,
+                            Wait = null,
+                            WaitFor = null,
+                            Select = null,
+                            JsExe = null,
+                            ConditionalCheck = null,
+                            ClickButtonByValue = null,
+                            GeneralImageCaptcha = null,
+                            BlockElement = null,
+                            Extract = null,
+                            FillImageCaptcha = null,
+                            SwitchToIframe = null,
+                            SwitchToParentFrame = null,
+                            ResolveAudioCaptcha = null,
+                            Screenshot = null,
+                            Saveimage = null,
+                        },
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem
+                        {
+                            Fill = null,
+                            Click = null,
+                            ClickIfExist = null,
+                            Enter = null,
+                            NewTab = null,
+                            MoveToRelativeTab = null,
+                            Wait = null,
+                            WaitFor = null,
+                            Select = null,
+                            JsExe = null,
+                            ConditionalCheck = null,
+                            ClickButtonByValue = null,
+                            GeneralImageCaptcha = null,
+                            BlockElement = null,
+                            Extract = null,
+                            FillImageCaptcha = null,
+                            SwitchToIframe = null,
+                            SwitchToParentFrame = null,
+                            ResolveAudioCaptcha = null,
+                            Screenshot = null,
+                            Saveimage = null,
+                        },
+                    },
                 },
-                {
-                  "fill": {
-                    "place": "#password",
-                    "value": "mypassword"
-                  }
-                },
-                {
-                  "click": "#loginButton"
-                },
-                {
-                  "wait": 2000
-                },
+            }
+        );
+        JsonAssert.AreEqual(response, mockResponse);
+    }
+
+    [NUnit.Framework.Test]
+    public async Task MockServerTest_2()
+    {
+        const string requestJson = """
+            {
+              "instructions": [
+                {},
+                {},
+                {},
+                {},
                 {
                   "extract": {
-                    "html": "#profile",
-                    "text": "#welcome-message",
-                    "user_data": "#user-info"
+                    "profile": "#profile",
+                    "welcomeMessage": "#welcome-message",
+                    "userInfo": "#user-info"
                   }
                 },
-                {
-                  "blockElement": [
-                    ".ad-banner",
-                    "//div[@class='popup']"
-                  ]
-                },
-                {
-                  "generalImageCaptcha": [
-                    {
-                      "imagePath": "#captcha-img",
-                      "textField": "#captcha-input",
-                      "imageUpdatePath": "#refresh-captcha",
-                      "captchaFailedPath": "#captcha-error",
-                      "model": "mini-ocr-v1"
-                    }
-                  ]
-                }
+                {},
+                {}
               ]
             }
             """;
@@ -108,104 +170,23 @@ public class WebScrapeTest : BaseMockServerTest
                 Url = "https://example.com",
                 Body = new WebScrapeRequestBodyBlockUrl
                 {
-                    BlockUrl = new List<string>()
+                    Instructions = new List<WebScrapeRequestBodyBlockUrlInstructionsItem>()
                     {
-                        "https://example.com/ads.js",
-                        "https://tracker.example.com/*",
-                    },
-                    Cookies = new List<WebScrapeRequestBodyBlockUrlCookiesItem>()
-                    {
-                        new WebScrapeRequestBodyBlockUrlCookiesItem
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem
                         {
-                            Name = "sessionid",
-                            Value = "abc123",
-                        },
-                        new WebScrapeRequestBodyBlockUrlCookiesItem
-                        {
-                            Name = "user_pref",
-                            Value = "darkmode",
-                        },
-                    },
-                    Instructions = new List<
-                        OneOf<
-                            WebScrapeRequestBodyBlockUrlInstructionsItemFill,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemClick,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemClickIfExist,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemEnter,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemNewTab,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemMoveToRelativeTab,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemWait,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemWaitFor,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSelect,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemJsExe,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemConditionalCheck,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemClickButtonByValue,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptcha,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemBlockElement,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemExtract,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemFillImageCaptcha,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToIframe,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToParentFrame,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemResolveAudioCaptcha,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemScreenshot,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSaveimage
-                        >
-                    >()
-                    {
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemFill
-                        {
-                            Fill = new WebScrapeRequestBodyBlockUrlInstructionsItemFillFill
+                            Extract = new Dictionary<string, string>()
                             {
-                                Place = "#username",
-                                Value = "myuser",
+                                { "profile", "#profile" },
+                                { "welcomeMessage", "#welcome-message" },
+                                { "userInfo", "#user-info" },
                             },
                         },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemFill
-                        {
-                            Fill = new WebScrapeRequestBodyBlockUrlInstructionsItemFillFill
-                            {
-                                Place = "#password",
-                                Value = "mypassword",
-                            },
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemClick
-                        {
-                            Click = "#loginButton",
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemWait { Wait = 2000 },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemExtract
-                        {
-                            Extract = new WebScrapeRequestBodyBlockUrlInstructionsItemExtractExtract
-                            {
-                                Html = "#profile",
-                                Text = "#welcome-message",
-                                UserData = "#user-info",
-                            },
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemBlockElement
-                        {
-                            BlockElement = new List<string>()
-                            {
-                                ".ad-banner",
-                                "//div[@class='popup']",
-                            },
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptcha
-                        {
-                            GeneralImageCaptcha =
-                                new List<WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem>()
-                                {
-                                    new WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem
-                                    {
-                                        ImagePath = "#captcha-img",
-                                        TextField = "#captcha-input",
-                                        ImageUpdatePath = "#refresh-captcha",
-                                        CaptchaFailedPath = "#captcha-error",
-                                        Model =
-                                            WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItemModel.MiniOcrV1,
-                                    },
-                                },
-                        },
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
                     },
                 },
             }
@@ -214,30 +195,37 @@ public class WebScrapeTest : BaseMockServerTest
     }
 
     [NUnit.Framework.Test]
-    public async Task MockServerTest_2()
+    public async Task MockServerTest_3()
     {
         const string requestJson = """
             {
               "instructions": [
                 {
                   "postForm": {
-                    "selector": "#loginForm"
+                    "selector": "#loginForm",
+                    "data": {
+                      "username": "myuser",
+                      "password": "mypassword"
+                    }
                   }
                 },
                 {
                   "extract": {
-                    "html": "#main-content",
-                    "text": "#welcome-message"
+                    "mainContent": "#main-content",
+                    "welcomeMessage": "#welcome-message"
                   }
                 },
                 {
                   "getForm": {
-                    "selector": "#searchForm"
+                    "selector": "#searchForm",
+                    "data": {
+                      "query": "API scraping"
+                    }
                   }
                 },
                 {
                   "extract": {
-                    "text": "#search-results"
+                    "searchResults": "#search-results"
                   }
                 }
               ]
@@ -277,42 +265,44 @@ public class WebScrapeTest : BaseMockServerTest
                 Url = "https://example.com",
                 Body = new WebScrapeRequestBodyOne
                 {
-                    Instructions = new List<
-                        OneOf<
-                            WebScrapeRequestBodyOneInstructionsItemPostForm,
-                            WebScrapeRequestBodyOneInstructionsItemGetForm,
-                            WebScrapeRequestBodyOneInstructionsItemExtract,
-                            WebScrapeRequestBodyOneInstructionsItemGetPage
-                        >
-                    >()
+                    Instructions = new List<WebScrapeRequestBodyOneInstructionsItem>()
                     {
-                        new WebScrapeRequestBodyOneInstructionsItemPostForm
+                        new WebScrapeRequestBodyOneInstructionsItem
                         {
-                            PostForm = new WebScrapeRequestBodyOneInstructionsItemPostFormPostForm
+                            PostForm = new WebScrapeRequestBodyOneInstructionsItemPostForm
                             {
                                 Selector = "#loginForm",
+                                Data = new Dictionary<string, string>()
+                                {
+                                    { "username", "myuser" },
+                                    { "password", "mypassword" },
+                                },
                             },
                         },
-                        new WebScrapeRequestBodyOneInstructionsItemExtract
+                        new WebScrapeRequestBodyOneInstructionsItem
                         {
-                            Extract = new WebScrapeRequestBodyOneInstructionsItemExtractExtract
+                            Extract = new Dictionary<string, string>()
                             {
-                                Html = "#main-content",
-                                Text = "#welcome-message",
+                                { "mainContent", "#main-content" },
+                                { "welcomeMessage", "#welcome-message" },
                             },
                         },
-                        new WebScrapeRequestBodyOneInstructionsItemGetForm
+                        new WebScrapeRequestBodyOneInstructionsItem
                         {
-                            GetForm = new WebScrapeRequestBodyOneInstructionsItemGetFormGetForm
+                            GetForm = new WebScrapeRequestBodyOneInstructionsItemGetForm
                             {
                                 Selector = "#searchForm",
+                                Data = new Dictionary<string, string>()
+                                {
+                                    { "query", "API scraping" },
+                                },
                             },
                         },
-                        new WebScrapeRequestBodyOneInstructionsItemExtract
+                        new WebScrapeRequestBodyOneInstructionsItem
                         {
-                            Extract = new WebScrapeRequestBodyOneInstructionsItemExtractExtract
+                            Extract = new Dictionary<string, string>()
                             {
-                                Text = "#search-results",
+                                { "searchResults", "#search-results" },
                             },
                         },
                     },
@@ -323,67 +313,24 @@ public class WebScrapeTest : BaseMockServerTest
     }
 
     [NUnit.Framework.Test]
-    public async Task MockServerTest_3()
+    public async Task MockServerTest_4()
     {
         const string requestJson = """
             {
-              "blockUrl": [
-                "https://example.com/ads.js",
-                "https://tracker.example.com/*"
-              ],
-              "cookies": [
-                {
-                  "name": "sessionid",
-                  "value": "abc123"
-                },
-                {
-                  "name": "user_pref",
-                  "value": "darkmode"
-                }
-              ],
               "instructions": [
-                {
-                  "fill": {
-                    "place": "#username",
-                    "value": "myuser"
-                  }
-                },
-                {
-                  "fill": {
-                    "place": "#password",
-                    "value": "mypassword"
-                  }
-                },
-                {
-                  "click": "#loginButton"
-                },
-                {
-                  "wait": 2000
-                },
+                {},
+                {},
+                {},
+                {},
                 {
                   "extract": {
-                    "html": "#profile",
-                    "text": "#welcome-message",
-                    "user_data": "#user-info"
+                    "profile": "#profile",
+                    "welcomeMessage": "#welcome-message",
+                    "userInfo": "#user-info"
                   }
                 },
-                {
-                  "blockElement": [
-                    ".ad-banner",
-                    "//div[@class='popup']"
-                  ]
-                },
-                {
-                  "generalImageCaptcha": [
-                    {
-                      "imagePath": "#captcha-img",
-                      "textField": "#captcha-input",
-                      "imageUpdatePath": "#refresh-captcha",
-                      "captchaFailedPath": "#captcha-error",
-                      "model": "mini-ocr-v1"
-                    }
-                  ]
-                }
+                {},
+                {}
               ]
             }
             """;
@@ -421,104 +368,23 @@ public class WebScrapeTest : BaseMockServerTest
                 Url = "https://example.com",
                 Body = new WebScrapeRequestBodyBlockUrl
                 {
-                    BlockUrl = new List<string>()
+                    Instructions = new List<WebScrapeRequestBodyBlockUrlInstructionsItem>()
                     {
-                        "https://example.com/ads.js",
-                        "https://tracker.example.com/*",
-                    },
-                    Cookies = new List<WebScrapeRequestBodyBlockUrlCookiesItem>()
-                    {
-                        new WebScrapeRequestBodyBlockUrlCookiesItem
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem
                         {
-                            Name = "sessionid",
-                            Value = "abc123",
-                        },
-                        new WebScrapeRequestBodyBlockUrlCookiesItem
-                        {
-                            Name = "user_pref",
-                            Value = "darkmode",
-                        },
-                    },
-                    Instructions = new List<
-                        OneOf<
-                            WebScrapeRequestBodyBlockUrlInstructionsItemFill,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemClick,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemClickIfExist,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemEnter,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemNewTab,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemMoveToRelativeTab,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemWait,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemWaitFor,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSelect,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemJsExe,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemConditionalCheck,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemClickButtonByValue,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptcha,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemBlockElement,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemExtract,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemFillImageCaptcha,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToIframe,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToParentFrame,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemResolveAudioCaptcha,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemScreenshot,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSaveimage
-                        >
-                    >()
-                    {
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemFill
-                        {
-                            Fill = new WebScrapeRequestBodyBlockUrlInstructionsItemFillFill
+                            Extract = new Dictionary<string, string>()
                             {
-                                Place = "#username",
-                                Value = "myuser",
+                                { "profile", "#profile" },
+                                { "welcomeMessage", "#welcome-message" },
+                                { "userInfo", "#user-info" },
                             },
                         },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemFill
-                        {
-                            Fill = new WebScrapeRequestBodyBlockUrlInstructionsItemFillFill
-                            {
-                                Place = "#password",
-                                Value = "mypassword",
-                            },
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemClick
-                        {
-                            Click = "#loginButton",
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemWait { Wait = 2000 },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemExtract
-                        {
-                            Extract = new WebScrapeRequestBodyBlockUrlInstructionsItemExtractExtract
-                            {
-                                Html = "#profile",
-                                Text = "#welcome-message",
-                                UserData = "#user-info",
-                            },
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemBlockElement
-                        {
-                            BlockElement = new List<string>()
-                            {
-                                ".ad-banner",
-                                "//div[@class='popup']",
-                            },
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptcha
-                        {
-                            GeneralImageCaptcha =
-                                new List<WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem>()
-                                {
-                                    new WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem
-                                    {
-                                        ImagePath = "#captcha-img",
-                                        TextField = "#captcha-input",
-                                        ImageUpdatePath = "#refresh-captcha",
-                                        CaptchaFailedPath = "#captcha-error",
-                                        Model =
-                                            WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItemModel.MiniOcrV1,
-                                    },
-                                },
-                        },
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
                     },
                 },
             }
@@ -527,67 +393,24 @@ public class WebScrapeTest : BaseMockServerTest
     }
 
     [NUnit.Framework.Test]
-    public async Task MockServerTest_4()
+    public async Task MockServerTest_5()
     {
         const string requestJson = """
             {
-              "blockUrl": [
-                "https://example.com/ads.js",
-                "https://tracker.example.com/*"
-              ],
-              "cookies": [
-                {
-                  "name": "sessionid",
-                  "value": "abc123"
-                },
-                {
-                  "name": "user_pref",
-                  "value": "darkmode"
-                }
-              ],
               "instructions": [
-                {
-                  "fill": {
-                    "place": "#username",
-                    "value": "myuser"
-                  }
-                },
-                {
-                  "fill": {
-                    "place": "#password",
-                    "value": "mypassword"
-                  }
-                },
-                {
-                  "click": "#loginButton"
-                },
-                {
-                  "wait": 2000
-                },
+                {},
+                {},
+                {},
+                {},
                 {
                   "extract": {
-                    "html": "#profile",
-                    "text": "#welcome-message",
-                    "user_data": "#user-info"
+                    "profile": "#profile",
+                    "welcomeMessage": "#welcome-message",
+                    "userInfo": "#user-info"
                   }
                 },
-                {
-                  "blockElement": [
-                    ".ad-banner",
-                    "//div[@class='popup']"
-                  ]
-                },
-                {
-                  "generalImageCaptcha": [
-                    {
-                      "imagePath": "#captcha-img",
-                      "textField": "#captcha-input",
-                      "imageUpdatePath": "#refresh-captcha",
-                      "captchaFailedPath": "#captcha-error",
-                      "model": "mini-ocr-v1"
-                    }
-                  ]
-                }
+                {},
+                {}
               ]
             }
             """;
@@ -633,104 +456,23 @@ public class WebScrapeTest : BaseMockServerTest
                 Url = "https://example.com",
                 Body = new WebScrapeRequestBodyBlockUrl
                 {
-                    BlockUrl = new List<string>()
+                    Instructions = new List<WebScrapeRequestBodyBlockUrlInstructionsItem>()
                     {
-                        "https://example.com/ads.js",
-                        "https://tracker.example.com/*",
-                    },
-                    Cookies = new List<WebScrapeRequestBodyBlockUrlCookiesItem>()
-                    {
-                        new WebScrapeRequestBodyBlockUrlCookiesItem
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem
                         {
-                            Name = "sessionid",
-                            Value = "abc123",
-                        },
-                        new WebScrapeRequestBodyBlockUrlCookiesItem
-                        {
-                            Name = "user_pref",
-                            Value = "darkmode",
-                        },
-                    },
-                    Instructions = new List<
-                        OneOf<
-                            WebScrapeRequestBodyBlockUrlInstructionsItemFill,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemClick,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemClickIfExist,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemEnter,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemNewTab,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemMoveToRelativeTab,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemWait,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemWaitFor,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSelect,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemJsExe,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemConditionalCheck,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemClickButtonByValue,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptcha,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemBlockElement,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemExtract,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemFillImageCaptcha,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToIframe,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSwitchToParentFrame,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemResolveAudioCaptcha,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemScreenshot,
-                            WebScrapeRequestBodyBlockUrlInstructionsItemSaveimage
-                        >
-                    >()
-                    {
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemFill
-                        {
-                            Fill = new WebScrapeRequestBodyBlockUrlInstructionsItemFillFill
+                            Extract = new Dictionary<string, string>()
                             {
-                                Place = "#username",
-                                Value = "myuser",
+                                { "profile", "#profile" },
+                                { "welcomeMessage", "#welcome-message" },
+                                { "userInfo", "#user-info" },
                             },
                         },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemFill
-                        {
-                            Fill = new WebScrapeRequestBodyBlockUrlInstructionsItemFillFill
-                            {
-                                Place = "#password",
-                                Value = "mypassword",
-                            },
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemClick
-                        {
-                            Click = "#loginButton",
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemWait { Wait = 2000 },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemExtract
-                        {
-                            Extract = new WebScrapeRequestBodyBlockUrlInstructionsItemExtractExtract
-                            {
-                                Html = "#profile",
-                                Text = "#welcome-message",
-                                UserData = "#user-info",
-                            },
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemBlockElement
-                        {
-                            BlockElement = new List<string>()
-                            {
-                                ".ad-banner",
-                                "//div[@class='popup']",
-                            },
-                        },
-                        new WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptcha
-                        {
-                            GeneralImageCaptcha =
-                                new List<WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem>()
-                                {
-                                    new WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem
-                                    {
-                                        ImagePath = "#captcha-img",
-                                        TextField = "#captcha-input",
-                                        ImageUpdatePath = "#refresh-captcha",
-                                        CaptchaFailedPath = "#captcha-error",
-                                        Model =
-                                            WebScrapeRequestBodyBlockUrlInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItemModel.MiniOcrV1,
-                                    },
-                                },
-                        },
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
+                        new WebScrapeRequestBodyBlockUrlInstructionsItem(),
                     },
                 },
             }

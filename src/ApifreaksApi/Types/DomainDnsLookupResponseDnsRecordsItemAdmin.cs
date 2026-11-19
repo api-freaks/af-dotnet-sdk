@@ -48,7 +48,7 @@ public record DomainDnsLookupResponseDnsRecordsItemAdmin : IJsonOnDeserialized
     public required int Retry { get; set; }
 
     [JsonPropertyName("serial")]
-    public required int Serial { get; set; }
+    public required long Serial { get; set; }
 
     [JsonIgnore]
     public ReadOnlyAdditionalProperties AdditionalProperties { get; private set; } = new();

@@ -13,7 +13,7 @@ public record MarineWeatherRequest
     public required string ApiKey { get; set; }
 
     /// <summary>
-    /// Response format returned by the API.
+    /// Response format returned by the API. Only JSON is supported.
     /// </summary>
     [JsonIgnore]
     public MarineWeatherRequestFormat? Format { get; set; }

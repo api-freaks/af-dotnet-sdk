@@ -25,13 +25,13 @@ public record DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
     /// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
     /// </summary>
     [JsonPropertyName("query_time")]
-    public required string QueryTime { get; set; }
+    public string? QueryTime { get; set; }
 
     [JsonPropertyName("whois_server")]
-    public required string WhoisServer { get; set; }
+    public string? WhoisServer { get; set; }
 
     [JsonPropertyName("domain_registered")]
-    public required DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered DomainRegistered { get; set; }
+    public DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered? DomainRegistered { get; set; }
 
     [JsonPropertyName("create_date")]
     public DateOnly? CreateDate { get; set; }

@@ -25,10 +25,10 @@ public record GetAdminUnitsRequest
     public required string Country { get; set; }
 
     /// <summary>
-    /// Comma-separated list to filter results by one or more administrative levels.
+    /// Filter results by one or more administrative level names (e.g. `land`, `state`, `province`), sent as a comma-separated list. Use the admin levels endpoint to list the levels a country has.
     /// </summary>
     [JsonIgnore]
-    public IEnumerable<string> AdminLevels { get; set; } = new List<string>();
+    public IEnumerable<string> AdminLevel { get; set; } = new List<string>();
 
     /// <inheritdoc />
     public override string ToString()

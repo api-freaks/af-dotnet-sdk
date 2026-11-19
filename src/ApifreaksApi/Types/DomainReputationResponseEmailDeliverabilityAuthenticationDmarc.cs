@@ -24,7 +24,7 @@ public record DomainReputationResponseEmailDeliverabilityAuthenticationDmarc : I
     /// DMARC enforcement policy applied to failing messages (e.g. none, quarantine, reject).
     /// </summary>
     [JsonPropertyName("policy")]
-    public required string Policy { get; set; }
+    public string? Policy { get; set; }
 
     /// <summary>
     /// Indicates whether DMARC aggregate / forensic reporting addresses are configured.
