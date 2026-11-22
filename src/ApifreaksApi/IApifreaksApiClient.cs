@@ -1107,23 +1107,6 @@ public partial interface IApifreaksApiClient
     );
 
     /// <summary>
-    /// Perform Optical Character Recognition (OCR) on images, PDFs, or ZIP archives. Supports two models: `mini-ocr-v1` for CAPTCHA-optimized OCR and `ocr-v1` for general-purpose document text extraction. Supports zonal OCR to extract text from specific regions of an image.
-    ///
-    /// **Notes:**
-    /// - The `zone` query parameter cannot be given with .pdf and .zip types as it can only be applied to single image query.
-    /// - The `page_range` query parameter cannot be given in any other type except .pdf types.
-    /// - PDFs containing images in them are allowed only for processing.
-    /// - The `mini-ocr-v1` model doesn’t support the following query parameters:
-    ///     - `page_range` (.pdf types)
-    ///     - `zone`
-    /// </summary>
-    WithRawResponseTask<OcrPredictResponse> OcrPredictAsync(
-        OcrPredictRequest request,
-        RequestOptions? options = null,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <summary>
     /// Analyze text for grammar errors and return the exact words flagged as grammatically incorrect with zero-based word positions.
     /// </summary>
     WithRawResponseTask<GrammarDetectResponse> GrammarDetectAsync(
