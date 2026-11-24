@@ -32,7 +32,7 @@ Or add it directly to your `.csproj`:
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="ApifreaksApi" Version="1.2.0" />
+  <PackageReference Include="ApifreaksApi" Version="2.0.0" />
 </ItemGroup>
 ```
 
